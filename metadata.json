@@ -1,0 +1,8 @@
+{
+  "name": "Bachtiar Aryansyah Putra Portfolio",
+  "description": "A photography and videography portfolio with an Elegant Anti-Design and Modern Y2K aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
