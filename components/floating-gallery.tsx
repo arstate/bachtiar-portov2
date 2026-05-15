@@ -165,13 +165,15 @@ export default function FloatingGallery() {
     restDelta: 0.001
   });
 
+  const scrollDownOpacity = useTransform(smoothProgress, [0, 0.1, 0.15], [1, 1, 0]);
+
   return (
-    <section ref={containerRef} className="relative z-10 w-full h-[400vh] bg-[#FDFCFB] border-b border-black">
+    <section ref={containerRef} className="relative z-10 w-full h-[400vh] bg-[#FDFCFB]">
       {/* Sticky container that spans the full viewport to avoid overlap issues */}
-      <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden z-0 bg-[#FDFCFB]">
+      <div className="sticky top-[65px] w-full h-[calc(100vh-65px)] flex flex-col items-center justify-start overflow-hidden z-0 bg-[#FDFCFB]">
         
         {/* Centered container with 21:9 aspect ratio */}
-        <div className="relative w-full aspect-[21/9] overflow-hidden [perspective:1200px] border-y border-black">
+        <div className="relative w-full aspect-[21/9] overflow-hidden [perspective:1200px] border-b border-black">
           
           {/* Video Background */}
           <video 
@@ -205,6 +207,44 @@ export default function FloatingGallery() {
             REC. 709 // 21:9
           </div>
           <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/10 z-10 pointer-events-none mix-blend-overlay" />
+
+          {/* Scroll Down Indicator */}
+          <motion.div 
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30 pointer-events-none"
+            style={{ opacity: scrollDownOpacity }}
+          >
+            <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.3em] drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">SCROLL DOWN</span>
+            <div className="w-[2px] h-10 md:h-14 bg-white/30 relative overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+              <motion.div 
+                className="w-full h-1/2 bg-white absolute top-0 left-0"
+                animate={{ y: ["-100%", "200%"] }}
+                transition={{ ease: "linear", duration: 1.5, repeat: Infinity }}
+              />
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* Running Text / Marquee */}
+        <div className="flex-grow w-full flex items-center overflow-hidden border-b border-black bg-[#FDFCFB]">
+          <motion.div
+            className="flex whitespace-nowrap font-serif text-4xl md:text-6xl lg:text-8xl uppercase tracking-wider text-black py-4 md:py-8"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ ease: "linear", duration: 30, repeat: Infinity }}
+            style={{ width: "fit-content" }}
+          >
+            {[...Array(4)].map((_, i) => (
+              <span key={i} className="pr-12 md:pr-16 flex items-center gap-12 md:gap-16">
+                <span className="italic">CINEMATOGRAPHY</span>
+                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span>PHOTOGRAPHY</span>
+                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span className="italic">CREATIVE DIRECTION</span>
+                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span>CAPTURE</span>
+                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+              </span>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
