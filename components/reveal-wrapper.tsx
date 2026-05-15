@@ -18,35 +18,23 @@ export default function RevealWrapper({ aboutMe, selectedWorks }: RevealWrapperP
     offset: ["start 100vh", "start 65px"]
   });
 
-  // We want Selected Works to be completely hidden (opacity 0) while About Me is scrolling UP
-  // to cover the Video section. Once About Me reaches the top (progress = 1), we make Selected Works visible
-  // so it's ready to be revealed AS About Me continues to scroll up.
-  const opacity = useTransform(scrollYProgress, [0.99, 1], [0, 1]);
+  // We want Selected Works to be visible but properly positioned.
+  // We can just keep it in normal document flow below About Me. 
+  // About Me already has a background color to mask out the video under it.
 
   return (
-    <div ref={containerRef} className="relative w-full z-20 bg-transparent">
+    <div ref={containerRef} className="relative w-full z-20 bg-transparent flex flex-col">
       
-      {/* LAYER 2: SELECTED WORKS (Z-20) */}
-      <motion.div 
-        style={{ opacity }}
-        className="absolute top-0 left-0 w-full h-full z-20 pointer-events-none"
-      >
-        <div className="sticky top-[65px] w-full pointer-events-auto">
-          {selectedWorks}
-        </div>
-      </motion.div>
-
       {/* LAYER 3: ABOUT ME (Z-30) */}
-      <div className="relative z-30 w-full bg-[#FDFCFB] border-t border-black shadow-[0_20px_60px_rgba(0,0,0,0.15)] pointer-events-auto">
+      <div className="relative z-30 w-full bg-[#FDFCFB] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] pointer-events-auto">
         {aboutMe}
       </div>
 
-      {/* SPACER (Z-10) - Ensures there is enough height for the user to scroll 
-          while Selected Works remains sticky. */}
-      {/* Set to a large height (250vh) so that if Selected Works is very tall (e.g. Bento grid),
-          it has room to stick before the container pushes it up to reveal its bottom. */}
-      <div className="relative z-10 w-full h-[250vh] pointer-events-none" />
-      
+      {/* LAYER 2: SELECTED WORKS (Normal Flow, Z-20) */}
+      <div className="relative z-20 w-full pointer-events-auto bg-[#050505]">
+        {selectedWorks}
+      </div>
+
     </div>
   );
 }

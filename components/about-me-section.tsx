@@ -1,6 +1,6 @@
 export default function AboutMeSection() {
   return (
-    <section className="w-full grid grid-cols-1 md:grid-cols-12 min-h-[calc(100vh-65px)]">
+    <section className="w-full grid grid-cols-1 md:grid-cols-12 min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-85px)] shrink-0">
       {/* Left Sidebar / Info (rotated text) */}
       <div className="md:col-span-2 lg:col-span-3 border-b md:border-b-0 md:border-r border-black p-6 flex flex-col justify-between items-start md:items-end md:relative overflow-hidden">
         <div className="hidden md:block absolute top-1/2 left-6 rotate-[-90deg] origin-top-left -translate-y-1/2 whitespace-nowrap">

@@ -179,7 +179,7 @@ export default function FloatingGallery() {
   return (
     <section ref={containerRef} className="relative w-full h-[600vh] bg-transparent">
       {/* Sticky container that spans the full viewport to avoid overlap issues */}
-      <div className="sticky top-[65px] w-full h-[calc(100vh-65px)] flex flex-col items-center justify-start overflow-hidden bg-[#FDFCFB]">
+      <div className="sticky top-[70px] md:top-[85px] w-full h-[calc(100vh-70px)] md:h-[calc(100vh-85px)] flex flex-col items-center justify-start overflow-hidden bg-[#FDFCFB]">
         
         {/* Content Wrapper */}
         <motion.div className="w-full flex flex-col items-center justify-start relative flex-grow h-full overflow-hidden">
