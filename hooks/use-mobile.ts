@@ -11,9 +11,16 @@ export function useIsMobile() {
       setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
     }
     mql.addEventListener("change", onChange)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
+    
+    // Defer state update to avoid cascading synchronous render warnings
+    const timeoutId = setTimeout(() => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    }, 0)
+    
+    return () => {
+      clearTimeout(timeoutId)
+      mql.removeEventListener("change", onChange)
+    }
   }, [])
 
   return !!isMobile

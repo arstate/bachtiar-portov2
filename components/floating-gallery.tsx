@@ -30,12 +30,13 @@ const cardConfigs = [
 function FloatingCard({ src, config, scrollYProgress, index }: { src: string; config: any; scrollYProgress: any, index: number }) {
   // Enter phase stagger: each card waits until its delay before moving up
   const d = config.delay;
+  const factor = 0.55; // Compress cards animation into the first 55% of the scroll
   
-  const enterStart = 0.001 + d * 0.05;
-  const enterEnd = 0.35 + d * 0.12;
+  const enterStart = 0.001 + d * 0.05 * factor;
+  const enterEnd = (0.35 + d * 0.12) * factor;
   
-  const exitStart = 0.6 + d * 0.1;
-  const exitEnd = 0.9 + d * 0.1;
+  const exitStart = (0.6 + d * 0.1) * factor;
+  const exitEnd = (0.9 + d * 0.1) * factor;
 
   // S-Curve mapping points to smooth out the transition into the hold phase
   const eMid1 = enterStart + (enterEnd - enterStart) * 0.3;
@@ -93,11 +94,11 @@ function FloatingCard({ src, config, scrollYProgress, index }: { src: string; co
     ]
   );
   
-  // Randomize floating animation values slightly for organic feel
-  const floatDuration = useMemo(() => 4 + Math.random() * 3, []);
-  const yVariance = useMemo(() => 8 + Math.random() * 8, []);
-  const floatRotX = useMemo(() => 2 + Math.random() * 3, []);
-  const floatRotY = useMemo(() => 2 + Math.random() * 3, []);
+  // Randomize floating animation values slightly for organic feel using index
+  const floatDuration = useMemo(() => 4 + (index % 3) * 1.5, [index]);
+  const yVariance = useMemo(() => 8 + (index % 4) * 2, [index]);
+  const floatRotX = useMemo(() => 2 + (index % 2) * 1.5, [index]);
+  const floatRotY = useMemo(() => 2 + ((index + 1) % 2) * 1.5, [index]);
 
   return (
     <motion.div
@@ -167,15 +168,26 @@ export default function FloatingGallery() {
 
   const scrollDownOpacity = useTransform(smoothProgress, [0, 0.1, 0.15], [1, 1, 0]);
 
+  // Phase 2: Fade & wipe for new video background/texts
+  const newBgClip = useTransform(smoothProgress, [0.55, 0.65], ["inset(100% 0 0 0)", "inset(0% 0 0 0)"]);
+  
+  // Staggered text reveal upwards after wipe finishes, then exit up before next section slides over
+  const word1Y = useTransform(smoothProgress, [0.65, 0.70, 0.80, 0.85], ["150%", "0%", "0%", "-200%"]);
+  const word2Y = useTransform(smoothProgress, [0.67, 0.72, 0.80, 0.85], ["150%", "0%", "0%", "-200%"]);
+  const word3Y = useTransform(smoothProgress, [0.69, 0.74, 0.80, 0.85], ["150%", "0%", "0%", "-200%"]);
+
+  // About Me slides up from bottom to cover the view, then stays until section ends
+  const aboutMeY = useTransform(smoothProgress, [0.85, 0.95], ["100%", "0%"]);
+
   return (
-    <section ref={containerRef} className="relative z-10 w-full h-[400vh] bg-[#FDFCFB]">
+    <section ref={containerRef} className="relative z-10 w-full h-[800vh] bg-[#FDFCFB]">
       {/* Sticky container that spans the full viewport to avoid overlap issues */}
       <div className="sticky top-[65px] w-full h-[calc(100vh-65px)] flex flex-col items-center justify-start overflow-hidden z-0 bg-[#FDFCFB]">
         
         {/* Centered container with 21:9 aspect ratio */}
-        <div className="relative w-full aspect-[21/9] overflow-hidden [perspective:1200px] border-b border-black">
+        <div className="relative w-full aspect-[21/9] overflow-hidden [perspective:1200px] border-b border-black bg-black">
           
-          {/* Video Background */}
+          {/* Base Video Background */}
           <video 
             className="absolute inset-0 w-full h-full object-cover z-0"
             autoPlay 
@@ -186,10 +198,48 @@ export default function FloatingGallery() {
             <source src="https://ia600105.us.archive.org/16/items/bg_20260514/BG.mp4" type="video/mp4" />
           </video>
 
-          <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none mix-blend-overlay" />
+          {/* New Video Background (Wipes up from bottom) */}
+          <motion.div
+            className="absolute inset-0 z-10 w-full h-full"
+            style={{ clipPath: newBgClip }}
+          >
+            <video 
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+            >
+              <source src="https://ia600603.us.archive.org/33/items/web_20260515/WEB.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+
+          <div className="absolute inset-0 bg-black/5 z-20 pointer-events-none mix-blend-overlay" />
+
+          {/* New Text Transition overlay */}
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none pb-12">
+            <div className="text-center flex flex-col items-center">
+              <div className="flex gap-4 md:gap-6 overflow-hidden py-2 px-4">
+                <motion.h2
+                  style={{ y: word1Y, textShadow: "0px 4px 20px rgba(0,0,0,0.6)" }}
+                  className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-white tracking-widest uppercase drop-shadow-xl"
+                >Crafting</motion.h2>
+                <motion.h2
+                  style={{ y: word2Y, textShadow: "0px 4px 20px rgba(0,0,0,0.6)" }}
+                  className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-white tracking-widest uppercase drop-shadow-xl"
+                >visual</motion.h2>
+              </div>
+              <div className="overflow-hidden py-2 px-4 mt-2">
+                <motion.h2
+                  style={{ y: word3Y, textShadow: "0px 4px 20px rgba(0,0,0,0.6)" }}
+                  className="font-serif italic text-3xl md:text-5xl lg:text-6xl text-white tracking-[0.2em] uppercase drop-shadow-xl"
+                >Narratives.</motion.h2>
+              </div>
+            </div>
+          </div>
 
           {/* Floating Cards Container */}
-          <div className="absolute inset-0 z-20 pointer-events-none">
+          <div className="absolute inset-0 z-40 pointer-events-none">
             {floatingImages.map((src, i) => (
               <FloatingCard 
                 key={i} 
@@ -202,15 +252,15 @@ export default function FloatingGallery() {
           </div>
           
           {/* Overlay subtle tracking lines & aesthetics */}
-          <div className="absolute inset-0 border border-white/10 z-30 pointer-events-none m-4 md:m-8 mix-blend-difference" />
-          <div className="absolute top-8 right-8 text-white text-[8px] md:text-xs font-mono uppercase tracking-widest z-30 opacity-70 drop-shadow-md">
+          <div className="absolute inset-0 border border-white/10 z-50 pointer-events-none m-4 md:m-8 mix-blend-difference" />
+          <div className="absolute top-8 right-8 text-white text-[8px] md:text-xs font-mono uppercase tracking-widest z-50 opacity-70 drop-shadow-md">
             REC. 709 // 21:9
           </div>
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/10 z-10 pointer-events-none mix-blend-overlay" />
+          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/10 z-50 pointer-events-none mix-blend-overlay" />
 
           {/* Scroll Down Indicator */}
           <motion.div 
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30 pointer-events-none"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-50 pointer-events-none"
             style={{ opacity: scrollDownOpacity }}
           >
             <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.3em] drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">SCROLL DOWN</span>
@@ -246,6 +296,81 @@ export default function FloatingGallery() {
             ))}
           </motion.div>
         </div>
+
+        {/* About Me Overlay */}
+        <motion.div 
+          className="absolute inset-x-0 bottom-0 z-50 bg-[#FDFCFB] flex flex-col shadow-[0_-30px_80px_rgba(0,0,0,0.3)]"
+          style={{ y: aboutMeY }}
+        >
+          <section className="w-full grid grid-cols-1 md:grid-cols-12 min-h-[55vh] border-t border-black">
+            
+            {/* Left Sidebar / Info (rotated text) */}
+            <div className="md:col-span-2 lg:col-span-3 border-b md:border-b-0 md:border-r border-black p-6 flex flex-col justify-between items-start md:items-end md:relative overflow-hidden">
+              <div className="hidden md:block absolute top-1/2 left-6 rotate-[-90deg] origin-top-left -translate-y-1/2 whitespace-nowrap">
+                <span className="text-[10px] uppercase tracking-[0.6em] font-medium opacity-40">
+                  VISIONARY / ARCHITECT OF LIGHT
+                </span>
+              </div>
+              <div className="w-full border-t border-black pt-4 mt-auto">
+                <span className="text-[10px] block uppercase font-bold tracking-[0.2em]">About Me</span>
+                <span className="text-[10px] block uppercase opacity-60 mt-2">Volume I</span>
+              </div>
+            </div>
+
+            {/* Center / Main Bio Content */}
+            <div className="md:col-span-7 lg:col-span-6 p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-black relative">
+              <h2 className="font-serif text-5xl md:text-6xl lg:text-[5.5rem] leading-[0.85] tracking-tighter italic mb-10 w-max text-black">
+                Capturing<br />
+                <span className="pl-8 md:pl-16">Raw Emotion.</span>
+              </h2>
+              
+              <div className="relative z-10 max-w-md space-y-6 md:ml-auto mr-auto md:mr-0 pl-0 md:pl-12 border-l-0 md:border-l-[0.5px] border-black/20">
+                <p className="text-xs md:text-sm leading-relaxed font-sans text-justify">
+                  I am a visual storyteller driven by the visceral power of the lens. My work lives at the intersection of high-fashion elegance and brutalist anti-design, stripping away the unnecessary to reveal clear, unpolished truth.
+                </p>
+                <p className="text-xs md:text-sm leading-relaxed font-sans text-justify">
+                  Through controlled asymmetry and a deliberate embrace of negative space, I craft visual narratives that challenge conventional framing. Every captured frame is a calculated study in tension, light, and geometry.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Sidebar / Details */}
+            <div className="md:col-span-3 lg:col-span-3 p-6 flex flex-col justify-between bg-neutral-50/30">
+              <div className="space-y-8 w-full">
+                <div className="group">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] opacity-80">Cinematography</span>
+                    <span className="text-[10px] font-bold">I</span>
+                  </div>
+                  <div className="h-[1px] bg-black w-full"></div>
+                </div>
+                
+                <div className="group">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] opacity-80">Portraiture</span>
+                    <span className="text-[10px] font-bold">II</span>
+                  </div>
+                  <div className="h-[1px] bg-black w-full opacity-60"></div>
+                </div>
+                
+                <div className="group">
+                  <div className="flex justify-between items-end mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] opacity-80">Editorial</span>
+                    <span className="text-[10px] font-bold">III</span>
+                  </div>
+                  <div className="h-[1px] bg-black w-full opacity-30"></div>
+                </div>
+              </div>
+              
+              <div className="mt-16 sm:mt-24 w-full flex justify-end">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-[1px] border-black flex items-center justify-center p-2 text-center group cursor-crosshair hover:bg-black hover:text-white transition-colors duration-500 bg-[#FDFCFB]">
+                   <span className="text-[8px] uppercase tracking-[0.2em] font-medium">Read<br/>More</span>
+                </div>
+              </div>
+            </div>
+
+          </section>
+        </motion.div>
       </div>
     </section>
   );
