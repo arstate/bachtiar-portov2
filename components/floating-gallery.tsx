@@ -182,9 +182,9 @@ export default function FloatingGallery() {
       <div className="sticky top-[65px] w-full h-[calc(100vh-65px)] flex flex-col items-center justify-start overflow-hidden bg-[#FDFCFB]">
         
         {/* Content Wrapper */}
-        <motion.div className="w-full flex flex-col items-center justify-start relative flex-grow h-full">
-          {/* Centered container with 21:9 aspect ratio */}
-          <div className="relative w-full aspect-[21/9] overflow-hidden [perspective:1200px] border-b border-black bg-black shrink-0">
+        <motion.div className="w-full flex flex-col items-center justify-start relative flex-grow h-full overflow-hidden">
+          {/* Main video container takes the remaining height */}
+          <div className="relative w-full flex-grow overflow-hidden [perspective:1200px] border-b border-black bg-black">
           
           {/* Base Video Background */}
           <video 
@@ -274,23 +274,23 @@ export default function FloatingGallery() {
         </div>
         
         {/* Running Text / Marquee */}
-        <div className="flex-grow w-full flex items-center overflow-hidden border-b border-black bg-[#FDFCFB]">
+        <div className="flex-shrink-0 w-full flex items-center overflow-hidden border-b border-black bg-[#FDFCFB] h-[60px] md:h-[80px]">
           <motion.div
-            className="flex whitespace-nowrap font-serif text-4xl md:text-6xl lg:text-8xl uppercase tracking-wider text-black py-4 md:py-8"
+            className="flex whitespace-nowrap font-serif text-2xl md:text-4xl lg:text-5xl uppercase tracking-wider text-black"
             animate={{ x: ["0%", "-50%"] }}
             transition={{ ease: "linear", duration: 30, repeat: Infinity }}
             style={{ width: "fit-content" }}
           >
             {[...Array(4)].map((_, i) => (
-              <span key={i} className="pr-12 md:pr-16 flex items-center gap-12 md:gap-16">
+              <span key={i} className="pr-8 md:pr-12 flex items-center gap-8 md:gap-12">
                 <span className="italic">CINEMATOGRAPHY</span>
-                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span className="font-sans text-lg md:text-xl opacity-50">✦</span>
                 <span>PHOTOGRAPHY</span>
-                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span className="font-sans text-lg md:text-xl opacity-50">✦</span>
                 <span className="italic">CREATIVE DIRECTION</span>
-                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span className="font-sans text-lg md:text-xl opacity-50">✦</span>
                 <span>CAPTURE</span>
-                <span className="font-sans text-xl md:text-3xl opacity-50">✦</span>
+                <span className="font-sans text-lg md:text-xl opacity-50">✦</span>
               </span>
             ))}
           </motion.div>
