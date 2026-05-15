@@ -1,10 +1,12 @@
 import Image from 'next/image';
 
 import FloatingGallery from '@/components/floating-gallery';
+import RevealWrapper from '@/components/reveal-wrapper';
+import AboutMeSection from '@/components/about-me-section';
 
 export default function Home() {
   return (
-    <main className="flex-grow flex flex-col relative w-full">
+    <main className="flex-grow flex flex-col relative w-full bg-[#FDFCFB]">
       {/* 
         Header Section
         - Thin black borders (border-black)
@@ -37,11 +39,21 @@ export default function Home() {
         </h1>
       </div>
       
-      <FloatingGallery />
+      {/* LAYER 1: VIDEO & FLOATING CARDS (Z-10) */}
+      <div className="relative z-10 w-full">
+        <FloatingGallery />
+      </div>
 
-      <div className="relative z-10 w-full bg-[#FDFCFB]">
-      {/* Showcase Section */}
-      <section className="w-full border-t border-black flex flex-col">
+      {/* LAYER 2 & LAYER 3: REVEAL MASKING EFFECT */}
+      {/* We use -mt-[80vh] with the 600vh Gallery to wait for the text to disappear, pause, 
+          and then slide up exactly enough to cover the video before it unsticks. */}
+      <div className="-mt-[80vh] relative z-20 w-full">
+        <RevealWrapper 
+          aboutMe={<AboutMeSection />}
+          selectedWorks={
+            <div className="w-full bg-[#FDFCFB] flex flex-col">
+            {/* Showcase Section */}
+            <section className="w-full border-t border-black flex flex-col">
         {/* Banner / Title */}
         <div className="w-full border-b border-black py-4 px-6 flex justify-between items-center bg-black text-white">
            <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">Selected Works</span>
@@ -170,9 +182,13 @@ export default function Home() {
 
         </div>
       </section>
+    </div>
+  }
+/>
+</div>
 
       {/* Footer Decorative Bar */}
-      <footer className="w-full border-t border-black py-4 px-6 flex flex-col md:flex-row justify-between items-center text-[8px] uppercase tracking-[0.2em] font-medium gap-4 md:gap-0 mt-auto">
+      <footer className="relative z-40 w-full border-t border-black py-4 px-6 flex flex-col md:flex-row justify-between items-center text-[8px] uppercase tracking-[0.2em] font-medium gap-4 md:gap-0 mt-auto bg-[#FDFCFB]">
         <span>All rights reserved &copy; 2026</span>
         <div className="flex gap-4 md:gap-8">
           <a href="#" className="hover:underline">Instagram</a>
@@ -181,7 +197,6 @@ export default function Home() {
         </div>
         <span>Design System v1.0.2</span>
       </footer>
-      </div>
 
     </main>
   );
