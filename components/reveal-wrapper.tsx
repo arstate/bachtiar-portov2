@@ -26,7 +26,7 @@ export default function RevealWrapper({ aboutMe, selectedWorks }: RevealWrapperP
     <div ref={containerRef} className="relative w-full z-20 bg-transparent flex flex-col">
       
       {/* LAYER 3: ABOUT ME (Z-30) */}
-      <div className="relative z-30 w-full bg-[#FDFCFB] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] pointer-events-auto">
+      <div className="relative z-30 w-full bg-[#FDFCFB] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] pointer-events-auto snap-start">
         {aboutMe}
       </div>
 

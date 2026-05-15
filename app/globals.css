@@ -5,3 +5,15 @@
   --font-sans: var(--font-space), sans-serif;
 }
 
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 85px;
+  }
+}
+
