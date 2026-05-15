@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import FloatingGallery from '@/components/floating-gallery';
+
 export default function Home() {
   return (
     <main className="flex-grow flex flex-col relative w-full">
@@ -9,7 +11,7 @@ export default function Home() {
         - Controlled asymmetry and experimental layout structure
         - Ample white space
       */}
-      <header className="w-full border-b border-black py-4 px-6 flex justify-between items-end">
+      <header className="sticky top-0 z-50 bg-[#FDFCFB] w-full border-b border-black py-4 px-6 flex justify-between items-end">
         <div className="flex flex-col">
           <span className="text-[10px] tracking-[0.2em] lowercase font-semibold">
             bachtiar aryansyah putra
@@ -35,22 +37,13 @@ export default function Home() {
         </h1>
       </div>
       
-      <div className="w-full border-b border-black">
-        <video 
-          className="w-full aspect-[21/9] object-cover"
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        >
-          <source src="https://ia600105.us.archive.org/16/items/bg_20260514/BG.mp4" type="video/mp4" />
-        </video>
-      </div>
+      <FloatingGallery />
 
-      {/* About Me Section */}
-      <section className="w-full flex-grow grid grid-cols-1 md:grid-cols-12 min-h-[50vh]">
-        
-        {/* Left Sidebar / Info (rotated text) */}
+      <div className="relative z-20 w-full bg-[#FDFCFB] -mt-[100vh] border-t border-black shadow-[0_-20px_80px_rgba(0,0,0,0.2)]">
+        {/* About Me Section */}
+        <section className="w-full flex-grow grid grid-cols-1 md:grid-cols-12 min-h-[50vh]">
+          
+          {/* Left Sidebar / Info (rotated text) */}
         <div className="md:col-span-2 lg:col-span-3 border-b md:border-b-0 md:border-r border-black p-6 flex flex-col justify-between items-start md:items-end md:relative overflow-hidden">
           <div className="hidden md:block absolute top-1/2 left-6 rotate-[-90deg] origin-top-left -translate-y-1/2 whitespace-nowrap">
             <span className="text-[10px] uppercase tracking-[0.6em] font-medium opacity-40">
@@ -259,6 +252,7 @@ export default function Home() {
         </div>
         <span>Design System v1.0.2</span>
       </footer>
+      </div>
 
     </main>
   );
