@@ -132,7 +132,14 @@ export default function SelectedWorksSection() {
   const [direction, setDirection] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<{ src?: string; videoId?: string; title?: string; overview?: string; challenge?: string; solution?: string; location?: string; year?: string } | null>(null);
   const [selectedPhotography, setSelectedPhotography] = useState<any | null>(null);
+  const [showMobileDetails, setShowMobileDetails] = useState(false);
   const [photographyData, setPhotographyData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (selectedPhotography) {
+      setShowMobileDetails(false);
+    }
+  }, [selectedPhotography]);
 
   useEffect(() => {
     fetch('/api/photography')
@@ -936,18 +943,44 @@ export default function SelectedWorksSection() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 50, opacity: 0, scale: 0.95 }}
               transition={{ ease: "easeOut", duration: 0.3 }}
-              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] md:h-[80vh] bg-[#111] border border-white/10 flex flex-col md:flex-row overflow-hidden shadow-2xl"
+              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] md:h-[80vh] bg-[#111] border border-white/10 flex flex-col-reverse md:flex-row shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Left Side (30%) - Fixed Text Content */}
-              <div className="w-full md:w-[30%] h-full flex flex-col p-8 lg:p-12 border-r border-white/10 overflow-y-auto custom-scrollbar">
-                 <div className="flex flex-col gap-8 text-white/90">
-                    <div>
-                      <h3 className="text-3xl lg:text-4xl font-serif tracking-tighter uppercase mb-4">{selectedPhotography.category}</h3>
-                      <p className="text-sm font-sans tracking-wide leading-relaxed opacity-80 border-l border-red-500 pl-4">{selectedPhotography.description}</p>
+              <div 
+                className={`w-full md:w-[30%] flex flex-col border-t md:border-t-0 md:border-r border-white/10 bg-[#111] z-20 transition-all duration-500 ease-in-out md:h-full md:overflow-y-auto custom-scrollbar ${
+                  showMobileDetails ? "h-[60vh] overflow-y-auto pb-8" : "h-auto"
+                }`}
+              >
+                 {/* Mobile View: Toggle Button */}
+                 <button 
+                  className="md:hidden w-full flex justify-center items-center py-3 text-white/50 hover:text-white transition-colors"
+                  onClick={() => setShowMobileDetails(!showMobileDetails)}
+                 >
+                   <svg 
+                     className={`w-6 h-6 transition-transform duration-300 ${showMobileDetails ? "rotate-180" : ""}`} 
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                   >
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                   </svg>
+                 </button>
+
+                 {/* Always showing Category and Event Name closely on Mobile, regular layout on Desktop */}
+                 <div className="flex flex-col gap-8 text-white/90 p-6 pt-0 md:p-8 md:pt-8 lg:p-12 lg:pt-12">
+                    <div className="flex flex-col gap-2 md:gap-4">
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif tracking-tighter uppercase">{selectedPhotography.category}</h3>
+                      {selectedPhotography.image?.location && (
+                        <div className="md:hidden block">
+                          <span className="font-mono text-sm tracking-widest text-[#a8b8a0]">{selectedPhotography.image.location.toUpperCase()}</span>
+                        </div>
+                      )}
+                      
+                      <div className={`mt-2 md:mt-0 ${!showMobileDetails ? "hidden md:block" : "block"}`}>
+                         <p className="text-sm font-sans tracking-wide leading-relaxed opacity-80 border-l border-red-500 pl-4">{selectedPhotography.description}</p>
+                      </div>
                     </div>
 
-                    <div className="flex flex-col gap-6 pt-6 border-t border-white/10">
+                    <div className={`flex flex-col gap-6 pt-6 border-t border-white/10 ${!showMobileDetails ? "hidden md:flex" : "flex"}`}>
                        <div className="flex flex-col gap-1">
                           <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Challenge</span>
                           <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-white/70">
@@ -962,7 +995,7 @@ export default function SelectedWorksSection() {
                        </div>
 
                        {selectedPhotography.image?.location && (
-                          <div className="flex flex-col gap-1">
+                          <div className="hidden md:flex flex-col gap-1">
                             <span className="text-xs font-bold uppercase tracking-widest text-white/50">Location / Event</span>
                             <span className="font-mono text-sm tracking-widest uppercase">{selectedPhotography.image.location}</span>
                           </div>
@@ -993,7 +1026,7 @@ export default function SelectedWorksSection() {
               </div>
 
               {/* Right Side (70%) - Scrollable Gallery */}
-              <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-4 md:p-8 bg-[#0a0a0a]">
+              <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-4 md:p-8 pb-[100px] md:pb-8 bg-[#0a0a0a]">
                  <div className="flex flex-col gap-8 mx-auto max-w-4xl">
                     {/* We use only 1 image for now as requested, but scrollable area is ready */}
                        <div className="relative w-full">
