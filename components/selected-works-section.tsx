@@ -940,7 +940,7 @@ export default function SelectedWorksSection() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Left Side (30%) - Fixed Text Content */}
-              <div className="w-full md:w-[30%] h-full flex flex-col p-8 lg:p-12 border-r border-white/10 overflow-y-auto">
+              <div className="w-full md:w-[30%] h-full flex flex-col p-8 lg:p-12 border-r border-white/10 overflow-y-auto custom-scrollbar">
                  <div className="flex flex-col gap-8 text-white/90">
                     <div>
                       <h3 className="text-3xl lg:text-4xl font-serif tracking-tighter uppercase mb-4">{selectedPhotography.category}</h3>
@@ -993,7 +993,7 @@ export default function SelectedWorksSection() {
               </div>
 
               {/* Right Side (70%) - Scrollable Gallery */}
-              <div className="flex-1 h-full overflow-y-auto p-4 md:p-8 bg-[#0a0a0a]">
+              <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-4 md:p-8 bg-[#0a0a0a]">
                  <div className="flex flex-col gap-8 mx-auto max-w-4xl">
                     {/* We use only 1 image for now as requested, but scrollable area is ready */}
                        <div className="relative w-full">
