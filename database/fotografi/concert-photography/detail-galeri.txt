@@ -1,0 +1,22 @@
+ID: concert
+Category: CONCERT PHOTOGRAPHY
+Theme: dark
+Layout: PORTRAIT_3
+Description: Capturing the raw energy, the sweat, and the electrifying atmosphere of live music performances.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/afb4552a-cd26-4849-9956-46e6d0b96665
+Location: DPR FEST
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/87242bf1-0421-4542-9a62-dd8f96e88cf8
+Location: ROCKAMINATION
+Year: 2025
+
+# Image 3
+Source: https://github.com/user-attachments/assets/f225d0fe-25ef-4b0a-819c-757f44c99785
+Location: DUA DELAPAN PADI
+Year: 2025

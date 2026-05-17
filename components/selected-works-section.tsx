@@ -5,120 +5,10 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { User, MessageSquare, Send, X, Play } from "lucide-react";
 
-const photographyData = [
-  {
-    id: "concert",
-    category: "CONCERT PHOTOGRAPHY",
-    theme: "dark",
-    layout: "PORTRAIT_3",
-    images: [
-      { src: "https://github.com/user-attachments/assets/afb4552a-cd26-4849-9956-46e6d0b96665", location: "DPR FEST", year: "2025" },
-      { src: "https://github.com/user-attachments/assets/87242bf1-0421-4542-9a62-dd8f96e88cf8", location: "ROCKAMINATION", year: "2025" },
-      { src: "https://github.com/user-attachments/assets/f225d0fe-25ef-4b0a-819c-757f44c99785", location: "DUA DELAPAN PADI", year: "2025" }
-    ],
-    description: "Capturing the raw energy, the sweat, and the electrifying atmosphere of live music performances."
-  },
-  {
-    id: "event",
-    category: "EVENT DOCUMENTARY",
-    theme: "dark",
-    layout: "3_LAND_2_PORT",
-    images: [
-      { src: "https://images.unsplash.com/photo-1505236858219-8359eb29e325?q=80&w=1500&auto=format&fit=crop", location: "Grand Hall", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1500&auto=format&fit=crop", location: "Downtown", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1500&auto=format&fit=crop", location: "Summit", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1521478413868-1af19c11bd45?q=80&w=1000&auto=format&fit=crop", location: "Backstage", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop", location: "VIP Lounge", year: "2025" },
-    ],
-    description: "Unfiltered human interactions. Documenting unscripted moments within curated spaces."
-  },
-  {
-    id: "landscape",
-    category: "LANDSCAPE & ARCHITECTURE",
-    theme: "dark",
-    layout: "PORTRAIT_6",
-    images: [
-      { src: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1000&auto=format&fit=crop", location: "Death Valley", year: "2024" },
-      { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1000&auto=format&fit=crop", location: "Swiss Alps", year: "2024" },
-      { src: "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=1000&auto=format&fit=crop", location: "Mojave", year: "2024" },
-      { src: "https://images.unsplash.com/photo-1506744626753-ce81510cf5f0?q=80&w=1000&auto=format&fit=crop", location: "Yosemite", year: "2024" },
-      { src: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1000&auto=format&fit=crop", location: "Patagonia", year: "2024" },
-      { src: "https://images.unsplash.com/photo-1414441460515-bb8ad7064d47?q=80&w=1000&auto=format&fit=crop", location: "Nordic", year: "2024" },
-    ],
-    description: "The brutal scale of nature and man-made structures framing human insignificance."
-  },
-  {
-    id: "animals",
-    category: "WILDLIFE",
-    theme: "dark",
-    layout: "PORTRAIT_2",
-    images: [
-      { src: "https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=1000&auto=format&fit=crop", location: "Savanna", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format&fit=crop", location: "Jungle", year: "2026" },
-    ],
-    description: "Intimate portraits of untamed beauty, holding the tension of a fleeting glance."
-  },
-  {
-    id: "yearbook",
-    category: "YEARBOOK & YOUTH",
-    theme: "dark",
-    layout: "PORTRAIT_3",
-    images: [
-      { src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop", location: "Campus", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=1000&auto=format&fit=crop", location: "Library", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1526426861295-8e3dcd8cdfe9?q=80&w=1000&auto=format&fit=crop", location: "Dorm", year: "2025" },
-    ],
-    description: "The fleeting era of youth. A nostalgic glimpse into the chaotic beauty of coming of age."
-  },
-  {
-    id: "portrait",
-    category: "PORTRAIT PHOTOGRAPHY",
-    theme: "cream",
-    layout: "PORTRAIT_3",
-    images: [
-      { src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop", location: "Studio A", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop", location: "Outdoor", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1000&auto=format&fit=crop", location: "City", year: "2026" },
-    ],
-    description: "Stripping away the layers. Focusing on the quiet, profound reality etched into the human face."
-  },
-  {
-    id: "prewedding",
-    category: "PRE WEDDING",
-    theme: "cream",
-    layout: "1_PORT_1_LAND",
-    images: [
-      { src: "https://images.unsplash.com/photo-1566838318109-a8bffb91d082?q=80&w=1000&auto=format&fit=crop", location: "Lake Como", year: "2025" },
-      { src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop", location: "Tuscany", year: "2025" }
-    ],
-    description: "A testament to anticipation. Stillness and whispered promises before the grand noise begins."
-  },
-  {
-    id: "wedding",
-    category: "WEDDING EDITORIAL",
-    theme: "cream",
-    layout: "PORTRAIT_3",
-    images: [
-      { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000&auto=format&fit=crop", location: "Cathedral", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000&auto=format&fit=crop", location: "Reception", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1535688597036-7c9082ef7de8?q=80&w=1000&auto=format&fit=crop", location: "Afterparty", year: "2026" },
-    ],
-    description: "The culmination of chaos into a single, breathless editorial narrative. High-fashion approach to a sacred tradition."
-  },
-  {
-    id: "graduation",
-    category: "GRADUATION",
-    theme: "cream",
-    layout: "PORTRAIT_4",
-    images: [
-      { src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop", location: "Hall", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000&auto=format&fit=crop", location: "Lawn", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1511629091441-ee46146481b6?q=80&w=1000&auto=format&fit=crop", location: "Ceremony", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1525926477800-7a0eab2330a8?q=80&w=1000&auto=format&fit=crop", location: "Campus", year: "2026" },
-    ],
-    description: "Commemorating chapters closed. A documentation of achievement wrapped in clean minimalism."
-  }
-];
+// Remove hardcoded photographyData array; we will fetch it!
+
+// Keep hardcoded videographyData for now as it was not requested to move
+
 
 const videographyData = [
   {
@@ -228,6 +118,19 @@ export default function SelectedWorksSection() {
   const [activeTab, setActiveTab] = useState<"photography" | "videography" | "contact">("photography");
   const [direction, setDirection] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<{ src?: string; videoId?: string; title?: string; overview?: string; challenge?: string; solution?: string; location?: string; year?: string } | null>(null);
+  const [photographyData, setPhotographyData] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/photography')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          // Sort simply by category or leave order as API sends
+          setPhotographyData(data);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const [contactName, setContactName] = useState("");
   const [contactBrand, setContactBrand] = useState("");
@@ -293,6 +196,38 @@ export default function SelectedWorksSection() {
 
           <div className="w-full h-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-24">
             
+            {section.layout === "LANDSCAPE_STACK" && (
+              <div className="w-full flex flex-col gap-12 md:gap-24">
+                  {section.images.map((img, i) => (
+                    <div key={i} className="flex flex-col gap-4">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                        <Image 
+                          src={img.src}
+                          alt={`${section.category} ${i}`}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                          <tbody>
+                            <tr>
+                              <td className="w-20 opacity-60">Event</td>
+                              <td>: {img.location}</td>
+                            </tr>
+                            <tr>
+                              <td className="w-20 opacity-60">Year</td>
+                              <td>: {img.year}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            )}
+
             {section.layout === "PORTRAIT_3" && (
               <div className="w-full flex flex-col gap-8">
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -311,7 +246,7 @@ export default function SelectedWorksSection() {
                         <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
                           <tbody>
                             <tr>
-                              <td className="w-20 opacity-60">Location</td>
+                              <td className="w-20 opacity-60">Event</td>
                               <td>: {img.location}</td>
                             </tr>
                             <tr>
@@ -331,6 +266,140 @@ export default function SelectedWorksSection() {
                      </p>
                   </div>
                  )}
+              </div>
+            )}
+
+            {section.layout === "1_LAND_2_PORT" && (
+              <div className="w-full flex flex-col gap-12">
+                 {/* Top row: 1 Landscape */}
+                 <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
+                  {section.images.slice(0, 1).map((img, i) => (
+                    <div key={i} className="flex flex-col gap-4">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                        <Image 
+                          src={img.src}
+                          alt={`${section.category} Landscape ${i}`}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                          <tbody>
+                            <tr>
+                              <td className="w-20 opacity-60">Event</td>
+                              <td>: {img.location}</td>
+                            </tr>
+                            <tr>
+                              <td className="w-20 opacity-60">Year</td>
+                              <td>: {img.year}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+                 </div>
+                 
+                 {/* Bottom row: 2 Portrait */}
+                 <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                  {section.images.slice(1, 3).map((img, i) => (
+                    <div key={i} className="flex flex-col gap-4">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                        <Image 
+                          src={img.src}
+                          alt={`${section.category} Portrait ${i}`}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                          <tbody>
+                            <tr>
+                              <td className="w-20 opacity-60">Event</td>
+                              <td>: {img.location}</td>
+                            </tr>
+                            <tr>
+                              <td className="w-20 opacity-60">Year</td>
+                              <td>: {img.year}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+                 </div>
+              </div>
+            )}
+
+            {section.layout === "2_LAND_1_PORT" && (
+              <div className="w-full flex flex-col gap-12">
+                 {/* Top row: 2 Landscape */}
+                 <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
+                  {section.images.slice(0, 2).map((img, i) => (
+                    <div key={i} className="flex flex-col gap-4">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                        <Image 
+                          src={img.src}
+                          alt={`${section.category} Landscape ${i}`}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                          <tbody>
+                            <tr>
+                              <td className="w-20 opacity-60">Event</td>
+                              <td>: {img.location}</td>
+                            </tr>
+                            <tr>
+                              <td className="w-20 opacity-60">Year</td>
+                              <td>: {img.year}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+                 </div>
+                 
+                 {/* Bottom row: 1 Portrait */}
+                 <div className="w-full flex justify-center">
+                   <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col gap-4">
+                     {section.images.slice(2, 3).map((img, i) => (
+                       <div key={i} className="flex flex-col gap-4">
+                         <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                           <Image 
+                             src={img.src}
+                             alt={`${section.category} Portrait ${i}`}
+                             fill
+                             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                             referrerPolicy="no-referrer"
+                           />
+                         </div>
+                         <div className="flex flex-col gap-2">
+                           <table className="w-full font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                             <tbody>
+                               <tr>
+                                 <td className="w-20 opacity-60">Event</td>
+                                 <td>: {img.location}</td>
+                               </tr>
+                               <tr>
+                                 <td className="w-20 opacity-60">Year</td>
+                                 <td>: {img.year}</td>
+                               </tr>
+                             </tbody>
+                           </table>
+                         </div>
+                       </div>
+                     ))}
+                   </div>
+                 </div>
               </div>
             )}
 

@@ -1,0 +1,17 @@
+ID: animals
+Category: WILDLIFE
+Theme: dark
+Layout: PORTRAIT_2
+Description: Intimate portraits of untamed beauty, holding the tension of a fleeting glance.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/432f0383-1df9-4581-9002-d95d190b6b75
+Location: TIGER
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/80e58133-d972-4522-bd59-81f31149e089
+Location: CAT
+Year: 2026

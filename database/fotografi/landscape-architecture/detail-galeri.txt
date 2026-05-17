@@ -1,0 +1,22 @@
+ID: landscape
+Category: LANDSCAPE & ARCHITECTURE
+Theme: dark
+Layout: 2_LAND_1_PORT
+Description: The brutal scale of nature and man-made structures framing human insignificance.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/66b56ff4-8674-44c2-88de-91acefc3411e
+Location: GUNUNG GAMBIR JEMBER
+Year: 2024
+
+# Image 2
+Source: https://github.com/user-attachments/assets/5bf25943-5bd0-4bf5-bdb0-0e5ec0d51268
+Location: JEMBER
+Year: 2025
+
+# Image 3
+Source: https://github.com/user-attachments/assets/dca1bcfe-4040-40e1-a887-66cf113989dc
+Location: ARSITEKTUR RUMAH ALANA CEMANDI
+Year: 2024

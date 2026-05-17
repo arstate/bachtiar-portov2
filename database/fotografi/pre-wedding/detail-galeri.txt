@@ -1,0 +1,22 @@
+ID: prewedding
+Category: PRE WEDDING
+Theme: cream
+Layout: LANDSCAPE_STACK
+Description: A testament to anticipation. Stillness and whispered promises before the grand noise begins.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/48a9b594-7e3b-45e2-aaf5-25bfe8c0dc80
+Location: IAN & ANGGUN
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/cf069296-562f-4e73-975b-c0f1dec5091c
+Location: NOVI & IVAN
+Year: 2025
+
+# Image 3
+Source: https://github.com/user-attachments/assets/f3fa9384-2af4-48db-b296-0a837e098f97
+Location: NITA & BUSTA
+Year: 2025

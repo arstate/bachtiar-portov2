@@ -1,0 +1,27 @@
+ID: graduation
+Category: GRADUATION
+Theme: cream
+Layout: PORTRAIT_4
+Description: Commemorating chapters closed. A documentation of achievement wrapped in clean minimalism.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/f089677f-3a76-4b4c-a6f3-6cbbb6bfaff9
+Location: GRADUATION OF ISNA, UNIVERSITAS ISLAM NEGRI MALANG
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/926cb8c8-d957-4ae7-b761-85e0fee280d2
+Location: GRADUATION OF MIA, UNIVERSITAS MUHAMMADIYAH SIDOARJO
+Year: 2025
+
+# Image 3
+Source: https://github.com/user-attachments/assets/2cff160d-a6eb-4321-880c-1506e16b5da2
+Location: GRADUATION OF FIFA, UNIVERSITAS ISLAM NEGRI JEMBER
+Year: 2025
+
+# Image 4
+Source: https://github.com/user-attachments/assets/ce59eece-a629-47c1-b8ee-aee07f33c66b
+Location: GRADUATION OF ERLYSA, UNIVERSITAS ISLAM NEGRI MALANG
+Year: 2025

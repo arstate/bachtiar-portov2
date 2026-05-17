@@ -1,0 +1,22 @@
+ID: event
+Category: EVENT DOCUMENTARY
+Theme: dark
+Layout: 1_LAND_2_PORT
+Description: Unfiltered human interactions. Documenting unscripted moments within curated spaces.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/eece42c1-736a-4264-b8cf-b8f50ce8b0cf
+Location: IONATION 6
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/04d422cb-562b-4299-bed0-92778189dd50
+Location: JALAN SEHAT MASJID AL AKBAR
+Year: 2024
+
+# Image 3
+Source: https://github.com/user-attachments/assets/3e762a7a-976a-464c-89ec-ad8c5f3308e0
+Location: PORPROV VIII JAWA TIMUR
+Year: 2023

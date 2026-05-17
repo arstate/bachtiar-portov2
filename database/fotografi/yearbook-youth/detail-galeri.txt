@@ -1,0 +1,22 @@
+ID: yearbook
+Category: YEARBOOK & YOUTH
+Theme: dark
+Layout: 2_LAND_1_PORT
+Description: The fleeting era of youth. A nostalgic glimpse into the chaotic beauty of coming of age.
+
+IMAGES:
+
+# Image 1
+Source: https://github.com/user-attachments/assets/d56457d9-61e9-43fb-a2fb-f02641e248a7
+Location: SMK PLUS NU SIDOARJO
+Year: 2025
+
+# Image 2
+Source: https://github.com/user-attachments/assets/b9af5139-f5de-450f-bfa9-b6a4f447a8d5
+Location: SMK PLUS NU SIDOARJO
+Year: 2024
+
+# Image 3
+Source: https://github.com/user-attachments/assets/a76f12db-4f29-4e46-82ea-11b27f5c283a
+Location: SMK ANTARTIKA SIDOARJO
+Year: 2025

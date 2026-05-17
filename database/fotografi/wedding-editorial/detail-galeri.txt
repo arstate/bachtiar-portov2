@@ -1,0 +1,22 @@
+ID: wedding
+Category: WEDDING EDITORIAL
+Theme: cream
+Layout: PORTRAIT_3
+Description: The culmination of chaos into a single, breathless editorial narrative. High-fashion approach to a sacred tradition.
+
+IMAGES:
+
+# Image 1
+Source: https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000&auto=format&fit=crop
+Location: Cathedral
+Year: 2026
+
+# Image 2
+Source: https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000&auto=format&fit=crop
+Location: Reception
+Year: 2026
+
+# Image 3
+Source: https://images.unsplash.com/photo-1535688597036-7c9082ef7de8?q=80&w=1000&auto=format&fit=crop
+Location: Afterparty
+Year: 2026
