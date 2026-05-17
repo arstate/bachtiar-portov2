@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 const photographyData = [
@@ -192,10 +192,22 @@ export default function SelectedWorksSection() {
   const [activeTab, setActiveTab] = useState<"photography" | "videography">("photography");
   const [direction, setDirection] = useState(0);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const handleTabChange = (newTab: "photography" | "videography") => {
     if (activeTab === newTab) return;
     setDirection(newTab === "videography" ? 1 : -1);
     setActiveTab(newTab);
+    
+    if (sectionRef.current) {
+      const yOffset = -70; // Header offset
+      const y = sectionRef.current.getBoundingClientRect().top + window.scrollY + yOffset;
+      
+      // Delay slightly to let the animation start, or do it immediately
+      setTimeout(() => {
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 50);
+    }
   };
 
   const currentData = activeTab === "photography" ? photographyData : videographyData;
@@ -478,7 +490,7 @@ export default function SelectedWorksSection() {
   );
 
   return (
-    <div className="w-full flex flex-col relative">
+    <div ref={sectionRef} className="w-full flex flex-col relative">
       {/* Category Sub-navigation */}
       <div className="sticky top-[70px] md:top-[85px] z-40 w-full bg-[#FDFCFB] border-b border-black py-4 px-6 flex justify-center md:justify-start items-center gap-8 sm:gap-12 text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-black">
          <span 
