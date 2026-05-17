@@ -1,6 +1,10 @@
-import Image from "next/image";
+"use client";
 
-const portfolioData = [
+import Image from "next/image";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+
+const photographyData = [
   {
     id: "concert",
     category: "CONCERT PHOTOGRAPHY",
@@ -115,22 +119,94 @@ const portfolioData = [
   }
 ];
 
-export default function SelectedWorksSection() {
-  return (
-    <div className="w-full flex flex-col relative">
-      {/* Category Sub-navigation */}
-      <div className="sticky top-[70px] md:top-[85px] z-40 w-full bg-[#FDFCFB] border-b border-black py-4 px-6 flex justify-center md:justify-start items-center gap-8 sm:gap-12 text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-black">
-         <span className="cursor-pointer border-b-2 border-black pb-1">Photography</span>
-         <span className="cursor-pointer opacity-40 hover:opacity-100 transition-opacity pb-1">Videography</span>
-      </div>
+const videographyData = [
+  {
+    id: "commercial",
+    category: "COMMERCIAL VIDEO",
+    theme: "dark",
+    layout: "1_PORT_1_LAND",
+    images: [
+      { src: "https://images.unsplash.com/photo-1540039155732-d6f74a001a1c?q=80&w=1000&auto=format&fit=crop", location: "Studio A", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop", location: "City", year: "2026" }
+    ],
+    description: "Telling compelling stories through motion and cinematic visuals for brands and businesses."
+  },
+  {
+    id: "wedding_video",
+    category: "WEDDING FILM",
+    theme: "cream",
+    layout: "PORTRAIT_3",
+    images: [
+      { src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop", location: "Lake Como", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000&auto=format&fit=crop", location: "Tuscany", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1535688597036-7c9082ef7de8?q=80&w=1000&auto=format&fit=crop", location: "Afterparty", year: "2026" },
+    ],
+    description: "Cinematic documentation of love, emotional depth, and beautifully crafted memories."
+  },
+  {
+    id: "documentary_video",
+    category: "EVENT DOCUMENTARY",
+    theme: "dark",
+    layout: "PORTRAIT_4",
+    images: [
+      { src: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1000&auto=format&fit=crop", location: "Convention Center", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop", location: "Hotel Hall", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1000&auto=format&fit=crop", location: "Downtown", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1521478413868-1af19c11bd45?q=80&w=1000&auto=format&fit=crop", location: "Backstage", year: "2026" },
+    ],
+    description: "Capturing the true essence and continuous flow of events in motion."
+  }
+];
 
-      {portfolioData.map((section, idx) => (
-        <section 
-          key={section.id} 
-          className={`relative w-full overflow-hidden flex flex-col justify-center items-center py-20 lg:py-32 ${
-            section.theme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#F4F3ED] text-black'
-          }`}
-        >
+const variants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  }
+};
+
+interface PortfolioSection {
+  id: string;
+  category: string;
+  theme: string;
+  layout: string;
+  images: Array<{ src: string; location?: string; year?: string }>;
+  description: string;
+}
+
+export default function SelectedWorksSection() {
+  const [activeTab, setActiveTab] = useState<"photography" | "videography">("photography");
+  const [direction, setDirection] = useState(0);
+
+  const handleTabChange = (newTab: "photography" | "videography") => {
+    if (activeTab === newTab) return;
+    setDirection(newTab === "videography" ? 1 : -1);
+    setActiveTab(newTab);
+  };
+
+  const currentData = activeTab === "photography" ? photographyData : videographyData;
+
+  const renderSection = (section: PortfolioSection) => (
+    <section 
+      key={section.id} 
+      className={`relative w-full overflow-hidden flex flex-col justify-center items-center py-20 lg:py-32 ${
+        section.theme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#F4F3ED] text-black'
+      }`}
+    >
           {/* Title */}
           <div className="absolute top-8 left-6 md:top-12 md:left-12 z-20 pointer-events-none pb-20">
             <h2 className="text-red-700 font-serif font-bold uppercase tracking-tighter text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
@@ -397,9 +473,44 @@ export default function SelectedWorksSection() {
               </div>
             )}
 
-          </div>
+           </div>
         </section>
-      ))}
+  );
+
+  return (
+    <div className="w-full flex flex-col relative">
+      {/* Category Sub-navigation */}
+      <div className="sticky top-[70px] md:top-[85px] z-40 w-full bg-[#FDFCFB] border-b border-black py-4 px-6 flex justify-center md:justify-start items-center gap-8 sm:gap-12 text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-black">
+         <span 
+           onClick={() => handleTabChange("photography")}
+           className={`cursor-pointer pb-1 transition-opacity ${activeTab === 'photography' ? 'border-b-2 border-black opacity-100' : 'opacity-40 hover:opacity-100'}`}
+         >
+           Photography
+         </span>
+         <span 
+           onClick={() => handleTabChange("videography")}
+           className={`cursor-pointer pb-1 transition-opacity ${activeTab === 'videography' ? 'border-b-2 border-black opacity-100' : 'opacity-40 hover:opacity-100'}`}
+         >
+           Videography
+         </span>
+      </div>
+
+      <div className="relative w-full overflow-hidden flex flex-col">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={activeTab}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+            className="w-full flex flex-col"
+          >
+            {currentData.map((section) => renderSection(section))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
