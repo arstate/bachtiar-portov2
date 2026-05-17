@@ -219,7 +219,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          className="object-cover transition-all duration-700 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -252,7 +252,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -294,7 +294,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          className="object-cover transition-all duration-700 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -325,7 +325,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -360,7 +360,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          className="object-cover transition-all duration-700 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -392,7 +392,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                              alt={`${section.category} Portrait ${i}`}
                              fill
-                             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                             className="object-cover transition-all duration-700"
                              referrerPolicy="no-referrer"
                            />
                          </div>
@@ -428,7 +428,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          className="object-cover transition-all duration-700 group-hover:scale-105"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -449,7 +449,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -482,7 +482,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -510,7 +510,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i + 3}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -534,7 +534,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
+                          className="object-cover transition-all duration-[1s]"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -566,7 +566,7 @@ export default function SelectedWorksSection() {
                           src={section.images[0].src}
                         alt={`${section.category} Portrait`}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
+                        className="object-cover transition-all duration-[1s]"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -583,7 +583,7 @@ export default function SelectedWorksSection() {
                           src={section.images[1].src}
                         alt={`${section.category} Landscape`}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] group-hover:scale-105"
+                        className="object-cover transition-all duration-[1s] group-hover:scale-105"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -613,7 +613,7 @@ export default function SelectedWorksSection() {
                           src={section.images[0].src}
                         alt={`${section.category} Landscape`}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] group-hover:scale-105"
+                        className="object-cover transition-all duration-[1s] group-hover:scale-105"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -635,7 +635,7 @@ export default function SelectedWorksSection() {
                           src={section.images[1].src}
                         alt={`${section.category} Portrait`}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
+                        className="object-cover transition-all duration-[1s]"
                         referrerPolicy="no-referrer"
                       />
                     </div>
@@ -676,7 +676,7 @@ export default function SelectedWorksSection() {
                          <img 
                            src={`https://img.youtube.com/vi/${img.videoId}/maxresdefault.jpg`}
                            alt={img.title || "Video thumbnail"}
-                           className="absolute top-0 left-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]" 
+                           className="absolute top-0 left-0 w-full h-full object-cover transition-all duration-[1s]" 
                          />
                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
                             <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center pl-1 text-white shadow-[0_0_30px_rgba(220,38,38,0.5)] transition-transform group-hover:scale-110">
@@ -711,7 +711,7 @@ export default function SelectedWorksSection() {
                           src={img.src}
                           alt={`${section.category} ${i}`}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                          className="object-cover transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                       </div>

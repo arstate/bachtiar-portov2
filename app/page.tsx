@@ -56,14 +56,8 @@ export default function Home() {
       </div>
 
       {/* Footer Decorative Bar */}
-      <footer className="relative z-40 w-full border-t border-black py-4 px-6 flex flex-col md:flex-row justify-between items-center text-[8px] uppercase tracking-[0.2em] font-medium gap-4 md:gap-0 mt-auto bg-[#FDFCFB]">
-        <span>All rights reserved &copy; 2026</span>
-        <div className="flex gap-4 md:gap-8">
-          <a href="#" className="hover:underline">Instagram</a>
-          <a href="#" className="hover:underline">Behance</a>
-          <a href="#" className="hover:underline">Vimeo</a>
-        </div>
-        <span>Design System v1.0.2</span>
+      <footer className="relative z-40 w-full border-t border-black py-4 px-6 flex justify-center items-center text-[8px] uppercase tracking-[0.2em] font-medium mt-auto bg-[#FDFCFB]">
+        <span>&copy;2026 Bachtiar Aryansyah Putra. All rights reserved.</span>
       </footer>
 
     </main>
