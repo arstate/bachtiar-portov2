@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { User, MessageSquare, Send } from "lucide-react";
 
 const photographyData = [
   {
@@ -189,14 +190,31 @@ interface PortfolioSection {
 }
 
 export default function SelectedWorksSection() {
-  const [activeTab, setActiveTab] = useState<"photography" | "videography">("photography");
+  const [activeTab, setActiveTab] = useState<"photography" | "videography" | "contact">("photography");
   const [direction, setDirection] = useState(0);
+
+  const [contactName, setContactName] = useState("");
+  const [contactBrand, setContactBrand] = useState("");
+  const [contactProject, setContactProject] = useState("");
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const handleTabChange = (newTab: "photography" | "videography") => {
+  const handleWhatsApp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!contactName || !contactProject) return;
+    
+    const phoneNumber = "6289617323344"; // 089617323344
+    const text = `Halo Kak Bachtiar,\n\nNama: ${contactName}\nBrand/Institusi/Perorangan: ${contactBrand}\n\nProject/Needs:\n${contactProject}`;
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+    
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleTabChange = (newTab: "photography" | "videography" | "contact") => {
     if (activeTab === newTab) return;
-    setDirection(newTab === "videography" ? 1 : -1);
+    const tabOrder = { photography: 0, videography: 1, contact: 2 };
+    setDirection(tabOrder[newTab] > tabOrder[activeTab] ? 1 : -1);
     setActiveTab(newTab);
     
     if (sectionRef.current) {
@@ -505,6 +523,12 @@ export default function SelectedWorksSection() {
          >
            Videography
          </span>
+         <span 
+           onClick={() => handleTabChange("contact")}
+           className={`cursor-pointer pb-1 transition-opacity ${activeTab === 'contact' ? 'border-b-2 border-black opacity-100' : 'opacity-40 hover:opacity-100'}`}
+         >
+           Contact
+         </span>
       </div>
 
       <div className="relative w-full overflow-hidden flex flex-col">
@@ -519,7 +543,81 @@ export default function SelectedWorksSection() {
             transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
             className="w-full flex flex-col"
           >
-            {currentData.map((section) => renderSection(section))}
+            {activeTab === "contact" ? (
+              <section className="relative w-full flex flex-col items-center justify-center py-24 px-6 md:py-32 xl:py-40 bg-[#111] text-white min-h-[80vh]">
+                <div className="max-w-2xl w-full flex flex-col items-center gap-10 z-10">
+                  <div className="text-center space-y-4">
+                    <h2 className="font-sans text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-none">
+                      GET IN <span className="font-serif italic font-normal text-red-600 lowercase tracking-normal">touch</span>
+                    </h2>
+                    <p className="opacity-60 text-sm md:text-base max-w-md mx-auto">
+                      Have a project in mind? Let's discuss how we can bring your vision to life.
+                    </p>
+                  </div>
+                  
+                  <form className="w-full flex flex-col gap-4">
+                    <div className="relative w-full group">
+                      <div className="absolute top-0 left-0 h-[4rem] w-14 flex items-center justify-center text-white/30 group-focus-within:text-white/60 transition-colors">
+                         <User className="w-5 h-5" />
+                      </div>
+                      <input 
+                        type="text" 
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                        placeholder="Your Name" 
+                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
+                      />
+                    </div>
+                    <div className="relative w-full group">
+                      <div className="absolute top-0 left-0 h-[4rem] w-14 flex items-center justify-center text-white/30 group-focus-within:text-white/60 transition-colors">
+                         <User className="w-5 h-5" />
+                      </div>
+                      <input 
+                        type="text" 
+                        value={contactBrand}
+                        onChange={(e) => setContactBrand(e.target.value)}
+                        placeholder="Brand / Institusi / Perorangan" 
+                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
+                      />
+                    </div>
+                    <div className="relative w-full group">
+                      <div className="absolute top-0 left-0 pt-[1.3rem] w-14 flex justify-center text-white/30 group-focus-within:text-white/60 transition-colors">
+                         <MessageSquare className="w-5 h-5" />
+                      </div>
+                      <textarea 
+                        value={contactProject}
+                        onChange={(e) => setContactProject(e.target.value)}
+                        placeholder="Tell me about your project / needs..." 
+                        className="w-full min-h-[160px] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 pt-[1.3rem] outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm resize-y"
+                      />
+                    </div>
+                    
+                    <button 
+                      type="button" 
+                      onClick={handleWhatsApp} 
+                      disabled={!contactName || !contactProject}
+                      className={`w-full h-[4rem] mt-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
+                        contactName && contactProject
+                          ? "bg-red-600 text-white hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] border border-red-500/50 shadow-[0_0_40px_-10px_rgba(220,38,38,0.5)]"
+                          : "bg-neutral-800 text-neutral-500 cursor-not-allowed border border-white/5"
+                      }`}
+                    >
+                      Send Message
+                      <Send className="w-4 h-4 ml-1" />
+                    </button>
+                  </form>
+                </div>
+                
+                {/* Y2K Linear Background Elements */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+                {/* Tech lines */}
+                <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/[0.02] pointer-events-none"></div>
+                <div className="absolute top-0 right-[20%] w-[1px] h-full bg-white/[0.02] pointer-events-none"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+              </section>
+            ) : (
+              currentData.map((section) => renderSection(section))
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
