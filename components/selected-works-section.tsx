@@ -9,6 +9,19 @@ import { User, MessageSquare, Send, X, Play } from "lucide-react";
 
 // Keep hardcoded videographyData for now as it was not requested to move
 
+const getRandomGear = () => {
+  const cameras = ["SONY A7Sii", "SONY A7Rii", "SONY A7iii"];
+  const lenses = ["50mm f1.4", "14mm f2.8", "35mm f1.4", "70-200 f4"];
+
+  const camera = cameras[Math.floor(Math.random() * cameras.length)];
+  
+  // Randomly select 2 to 4 lenses
+  const numLenses = Math.floor(Math.random() * 3) + 2; // 2, 3, or 4
+  const shuffledLenses = [...lenses].sort(() => 0.5 - Math.random());
+  const selectedLenses = shuffledLenses.slice(0, numLenses);
+
+  return { camera, lenses: selectedLenses };
+};
 
 const videographyData = [
   {
@@ -118,6 +131,7 @@ export default function SelectedWorksSection() {
   const [activeTab, setActiveTab] = useState<"photography" | "videography" | "contact">("photography");
   const [direction, setDirection] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<{ src?: string; videoId?: string; title?: string; overview?: string; challenge?: string; solution?: string; location?: string; year?: string } | null>(null);
+  const [selectedPhotography, setSelectedPhotography] = useState<any | null>(null);
   const [photographyData, setPhotographyData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -139,7 +153,7 @@ export default function SelectedWorksSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (selectedVideo) {
+    if (selectedVideo || selectedPhotography) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -147,7 +161,7 @@ export default function SelectedWorksSection() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [selectedVideo]);
+  }, [selectedVideo, selectedPhotography]);
 
   const handleWhatsApp = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -183,10 +197,20 @@ export default function SelectedWorksSection() {
   const renderSection = (section: PortfolioSection) => (
     <section 
       key={section.id} 
-      className={`relative w-full overflow-hidden flex flex-col justify-center items-center py-20 lg:py-32 ${
+      onClick={() => {
+        if (activeTab === 'photography') {
+          setSelectedPhotography({ ...section, _gear: getRandomGear() });
+        }
+      }}
+      className={`relative w-full overflow-hidden flex flex-col justify-center items-center py-20 lg:py-32 group/section ${
         section.theme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#F4F3ED] text-black'
-      }`}
+      } ${activeTab === 'photography' ? 'cursor-pointer hover:bg-opacity-95' : ''}`}
     >
+          {activeTab === 'photography' && (
+            <div className="absolute top-8 right-6 md:top-12 md:right-12 z-20 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-500">
+              <span className="font-mono text-xs md:text-sm tracking-widest border border-current px-4 py-2 uppercase">View Gallery</span>
+            </div>
+          )}
           {/* Title */}
           <div className="absolute top-8 left-6 md:top-12 md:left-12 z-20 pointer-events-none pb-20">
             <h2 className="text-red-700 font-serif font-bold uppercase tracking-tighter text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
@@ -588,6 +612,53 @@ export default function SelectedWorksSection() {
               </div>
             )}
 
+            {section.layout === "1_LAND_1_PORT" && (
+              <div className="w-full flex flex-col gap-12">
+                 <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                  
+                  {/* Landscape on Left (7 cols) */}
+                  <div className="md:col-span-7 flex flex-col gap-4">
+                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group">
+                      <Image 
+                        src={section.images[0].src}
+                        alt={`${section.category} Landscape`}
+                        fill
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="flex justify-between font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                        <span className="opacity-60">{section.images[0].location}</span>
+                        <span>{section.images[0].year}</span>
+                    </div>
+                    {section.description && (
+                      <p className="font-sans text-xs md:text-sm opacity-80 leading-relaxed uppercase tracking-wide mt-4 md:mt-8 max-w-md">
+                        {section.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Portrait on Right (5 cols) */}
+                  <div className="md:col-span-5 flex flex-col gap-4">
+                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <Image 
+                        src={section.images[1].src}
+                        alt={`${section.category} Portrait`}
+                        fill
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="flex justify-between font-mono text-[10px] uppercase tracking-widest border-b border-opacity-20 pb-2 border-inherit">
+                        <span className="opacity-60">{section.images[1].location}</span>
+                        <span>{section.images[1].year}</span>
+                    </div>
+                  </div>
+
+                 </div>
+              </div>
+            )}
+
             {section.layout.startsWith("VIDEO_GRID") && (
               <div className="w-full flex flex-col gap-8">
                  <div className="w-full grid grid-cols-1 md:grid-cols-6 gap-6 md:gap-8">
@@ -852,6 +923,105 @@ export default function SelectedWorksSection() {
               <button 
                  className="absolute top-4 right-4 w-12 h-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-all backdrop-blur-sm z-10 hover:scale-110 active:scale-95"
                  onClick={() => setSelectedVideo(null)}
+              >
+                 <X className="w-6 h-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Photography Modal */}
+      <AnimatePresence>
+        {selectedPhotography && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
+            onClick={() => setSelectedPhotography(null)}
+          >
+            <motion.div
+              initial={{ y: 50, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 50, opacity: 0, scale: 0.95 }}
+              transition={{ ease: "easeOut", duration: 0.3 }}
+              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] bg-[#111] border border-white/10 flex flex-col md:flex-row overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Left Side (30%) - Fixed Text Content */}
+              <div className="w-full md:w-[30%] h-full flex flex-col p-8 lg:p-12 border-r border-white/10 overflow-y-auto">
+                 <div className="flex flex-col gap-8 text-white/90">
+                    <div>
+                      <h3 className="text-3xl lg:text-4xl font-serif tracking-tighter uppercase mb-4">{selectedPhotography.category}</h3>
+                      <p className="text-sm font-sans tracking-wide leading-relaxed opacity-80 border-l border-red-500 pl-4">{selectedPhotography.description}</p>
+                    </div>
+
+                    <div className="flex flex-col gap-6 pt-6 border-t border-white/10">
+                       {/* Context Info */}
+                       <div className="flex flex-col gap-1">
+                          <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Challenge</span>
+                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-white/70">
+                             {selectedPhotography.challenge || "Capturing the raw emotion and scale of the event while navigating unpredictable lighting and fast-paced moments."}
+                          </p>
+                       </div>
+                       <div className="flex flex-col gap-1">
+                          <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Solution</span>
+                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-[#a8b8a0]">
+                             {selectedPhotography.solution || "Utilizing prime lenses for low-light advantage and anticipating key actions to secure compelling, structured compositions."}
+                          </p>
+                       </div>
+
+                       {selectedPhotography.images[0]?.location && (
+                          <div className="flex flex-col gap-1">
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/50">Location / Event</span>
+                            <span className="font-mono text-sm tracking-widest uppercase">{selectedPhotography.images[0].location}</span>
+                          </div>
+                       )}
+                       {selectedPhotography.images[0]?.year && (
+                          <div className="flex flex-col gap-1">
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/50">Year</span>
+                            <span className="font-mono text-sm tracking-widest">{selectedPhotography.images[0].year}</span>
+                          </div>
+                       )}
+                       {selectedPhotography._gear && (
+                          <div className="flex flex-col gap-1 mt-4">
+                            <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-2">Gear Used</span>
+                            <div className="flex flex-col gap-3">
+                              <div>
+                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1">Camera</span>
+                                <span className="font-sans text-sm tracking-wide opacity-90">{selectedPhotography._gear.camera}</span>
+                              </div>
+                              <div>
+                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1">Lenses</span>
+                                <span className="font-sans text-sm tracking-wide opacity-90">{selectedPhotography._gear.lenses.join(', ')}</span>
+                              </div>
+                            </div>
+                          </div>
+                       )}
+                    </div>
+                 </div>
+              </div>
+
+              {/* Right Side (70%) - Scrollable Gallery */}
+              <div className="flex-1 h-full overflow-y-auto p-4 md:p-8 bg-[#0a0a0a]">
+                 <div className="flex flex-col gap-8 mx-auto max-w-4xl">
+                    {selectedPhotography.images.map((img: any, i: number) => (
+                       <div key={i} className="relative w-full">
+                          <img 
+                            src={img.src} 
+                            alt={`${selectedPhotography.category} ${i}`}
+                            className="w-full h-auto object-contain"
+                            loading="lazy"
+                          />
+                       </div>
+                    ))}
+                 </div>
+              </div>
+
+              <button 
+                 className="absolute top-4 right-4 w-12 h-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-all backdrop-blur-sm z-10 hover:scale-110 active:scale-95 border border-white/10"
+                 onClick={() => setSelectedPhotography(null)}
               >
                  <X className="w-6 h-6" />
               </button>
