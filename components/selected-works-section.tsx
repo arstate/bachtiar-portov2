@@ -122,8 +122,8 @@ const photographyData = [
 
 const videographyData = [
   {
-    id: "commercial",
-    category: "COMMERCIAL VIDEO",
+    id: "ads",
+    category: "ADS",
     theme: "dark",
     layout: "1_PORT_1_LAND",
     images: [
@@ -133,29 +133,65 @@ const videographyData = [
     description: "Telling compelling stories through motion and cinematic visuals for brands and businesses."
   },
   {
-    id: "wedding_video",
-    category: "WEDDING FILM",
-    theme: "cream",
+    id: "angkatan_sekolah",
+    category: "ANGKATAN SEKOLAH",
+    theme: "dark",
     layout: "PORTRAIT_3",
     images: [
+      { src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000&auto=format&fit=crop", location: "School", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop", location: "Campus", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=1000&auto=format&fit=crop", location: "Classroom", year: "2026" },
+    ],
+    description: "Capturing the fleeting moments of youth, friendship, and school memories."
+  },
+  {
+    id: "corporate_event",
+    category: "CORPORATE / EVENT",
+    theme: "cream",
+    layout: "PORTRAIT_4",
+    images: [
+      { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1000&auto=format&fit=crop", location: "Convention Center", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop", location: "Hotel Hall", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1000&auto=format&fit=crop", location: "Downtown", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1521478413868-1af19c11bd45?q=80&w=1000&auto=format&fit=crop", location: "Backstage", year: "2026" },
+    ],
+    description: "Capturing the true essence and continuous flow of events in motion."
+  },
+  {
+    id: "prewedding",
+    category: "PREWEDDING",
+    theme: "cream",
+    layout: "1_PORT_1_LAND",
+    images: [
       { src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop", location: "Lake Como", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000&auto=format&fit=crop", location: "Tuscany", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1535688597036-7c9082ef7de8?q=80&w=1000&auto=format&fit=crop", location: "Afterparty", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2000&auto=format&fit=crop", location: "Tuscany", year: "2026" }
     ],
     description: "Cinematic documentation of love, emotional depth, and beautifully crafted memories."
   },
   {
-    id: "documentary_video",
-    category: "EVENT DOCUMENTARY",
-    theme: "dark",
+    id: "wedding",
+    category: "WEDDING",
+    theme: "cream",
+    layout: "PORTRAIT_3",
+    images: [
+      { src: "https://images.unsplash.com/photo-1535688597036-7c9082ef7de8?q=80&w=1000&auto=format&fit=crop", location: "Ceremony", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000&auto=format&fit=crop", location: "Reception", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000&auto=format&fit=crop", location: "Afterparty", year: "2026" }
+    ],
+    description: "Capturing the pure magic of your special day, creating a timeless film."
+  },
+  {
+    id: "wisuda",
+    category: "WISUDA",
+    theme: "cream",
     layout: "PORTRAIT_4",
     images: [
-      { src: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1000&auto=format&fit=crop", location: "Convention Center", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop", location: "Hotel Hall", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1000&auto=format&fit=crop", location: "Downtown", year: "2026" },
-      { src: "https://images.unsplash.com/photo-1521478413868-1af19c11bd45?q=80&w=1000&auto=format&fit=crop", location: "Backstage", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1000&auto=format&fit=crop", location: "University", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1000&auto=format&fit=crop", location: "Ceremony", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd1?q=80&w=1000&auto=format&fit=crop", location: "Graduates", year: "2026" },
+      { src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000&auto=format&fit=crop", location: "Celebration", year: "2026" }
     ],
-    description: "Capturing the true essence and continuous flow of events in motion."
+    description: "Honoring achievements and academic milestones with a cinematic touch."
   }
 ];
 
@@ -544,7 +580,12 @@ export default function SelectedWorksSection() {
             className="w-full flex flex-col"
           >
             {activeTab === "contact" ? (
-              <section className="relative w-full flex flex-col items-center justify-center py-24 px-6 md:py-32 xl:py-40 bg-[#111] text-white min-h-[80vh]">
+              <motion.section 
+                initial={{ backgroundColor: "#000000" }}
+                animate={{ backgroundColor: "#111111" }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="relative w-full flex flex-col items-center justify-center py-24 px-6 md:py-32 xl:py-40 text-white min-h-[80vh]"
+              >
                 <div className="max-w-2xl w-full flex flex-col items-center gap-10 z-10">
                   <div className="text-center space-y-4">
                     <h2 className="font-sans text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-none">
@@ -565,7 +606,7 @@ export default function SelectedWorksSection() {
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
                         placeholder="Your Name" 
-                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
+                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-none pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
                       />
                     </div>
                     <div className="relative w-full group">
@@ -577,7 +618,7 @@ export default function SelectedWorksSection() {
                         value={contactBrand}
                         onChange={(e) => setContactBrand(e.target.value)}
                         placeholder="Brand / Institusi / Perorangan" 
-                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
+                        className="w-full h-[4rem] bg-[#1a1a1a]/80 border border-white/5 rounded-none pl-14 pr-4 outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm"
                       />
                     </div>
                     <div className="relative w-full group">
@@ -588,7 +629,7 @@ export default function SelectedWorksSection() {
                         value={contactProject}
                         onChange={(e) => setContactProject(e.target.value)}
                         placeholder="Tell me about your project / needs..." 
-                        className="w-full min-h-[160px] bg-[#1a1a1a]/80 border border-white/5 rounded-2xl pl-14 pr-4 pt-[1.3rem] outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm resize-y"
+                        className="w-full min-h-[160px] bg-[#1a1a1a]/80 border border-white/5 rounded-none pl-14 pr-4 pt-[1.3rem] outline-none focus:border-white/20 focus:bg-[#252525]/80 transition-all placeholder:text-white/30 text-sm resize-y"
                       />
                     </div>
                     
@@ -596,7 +637,7 @@ export default function SelectedWorksSection() {
                       type="button" 
                       onClick={handleWhatsApp} 
                       disabled={!contactName || !contactProject}
-                      className={`w-full h-[4rem] mt-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
+                      className={`w-full h-[4rem] mt-4 rounded-none flex items-center justify-center gap-2 font-medium transition-all ${
                         contactName && contactProject
                           ? "bg-red-600 text-white hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] border border-red-500/50 shadow-[0_0_40px_-10px_rgba(220,38,38,0.5)]"
                           : "bg-neutral-800 text-neutral-500 cursor-not-allowed border border-white/5"
@@ -609,12 +650,16 @@ export default function SelectedWorksSection() {
                 </div>
                 
                 {/* Y2K Linear Background Elements */}
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-                {/* Tech lines */}
-                <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/[0.02] pointer-events-none"></div>
-                <div className="absolute top-0 right-[20%] w-[1px] h-full bg-white/[0.02] pointer-events-none"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
-              </section>
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="absolute inset-0 pointer-events-none overflow-hidden"
+                >
+                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+                </motion.div>
+              </motion.section>
             ) : (
               currentData.map((section) => renderSection(section))
             )}
