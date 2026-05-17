@@ -29,8 +29,24 @@ export default function AboutMeSection() {
       </div>
 
       {/* Center / Main Bio Content */}
-      <div className="md:col-span-7 lg:col-span-6 p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-black relative">
-        <h2 className="font-serif text-5xl md:text-6xl lg:text-[5.5rem] leading-[0.85] tracking-tighter italic mb-10 w-max text-black">
+      <div className="md:col-span-7 lg:col-span-6 p-8 md:p-12 lg:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-black relative overflow-hidden">
+        
+        {/* Subtle Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+
+        {/* Decorative Elements */}
+        {/* Faded Background "About Me" Text */}
+        <div 
+          className="absolute top-10 md:top-16 left-8 md:left-32 pointer-events-none select-none text-black opacity-[0.05] font-serif text-[80px] md:text-[160px] leading-none font-bold whitespace-nowrap"
+          style={{
+            WebkitMaskImage: "linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)",
+            maskImage: "linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)"
+          }}
+        >
+          About Me
+        </div>
+
+        <h2 className="relative z-10 font-serif text-5xl md:text-6xl lg:text-[5.5rem] leading-[0.85] tracking-tighter italic mb-10 w-max text-black">
           My<br />
           <span className="pl-8 md:pl-16">Profile.</span>
         </h2>
