@@ -197,20 +197,10 @@ export default function SelectedWorksSection() {
   const renderSection = (section: PortfolioSection) => (
     <section 
       key={section.id} 
-      onClick={() => {
-        if (activeTab === 'photography') {
-          setSelectedPhotography({ ...section, _gear: getRandomGear() });
-        }
-      }}
       className={`relative w-full overflow-hidden flex flex-col justify-center items-center py-20 lg:py-32 group/section ${
         section.theme === 'dark' ? 'bg-[#050505] text-white' : 'bg-[#F4F3ED] text-black'
-      } ${activeTab === 'photography' ? 'cursor-pointer hover:bg-opacity-95' : ''}`}
+      }`}
     >
-          {activeTab === 'photography' && (
-            <div className="absolute top-8 right-6 md:top-12 md:right-12 z-20 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-500">
-              <span className="font-mono text-xs md:text-sm tracking-widest border border-current px-4 py-2 uppercase">View Gallery</span>
-            </div>
-          )}
           {/* Title */}
           <div className="absolute top-8 left-6 md:top-12 md:left-12 z-20 pointer-events-none pb-20">
             <h2 className="text-red-700 font-serif font-bold uppercase tracking-tighter text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
@@ -224,7 +214,7 @@ export default function SelectedWorksSection() {
               <div className="w-full flex flex-col gap-12 md:gap-24">
                   {section.images.map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -257,7 +247,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -299,7 +289,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
                   {section.images.slice(0, 1).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -330,7 +320,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {section.images.slice(1, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
@@ -365,7 +355,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
                   {section.images.slice(0, 2).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -397,9 +387,9 @@ export default function SelectedWorksSection() {
                    <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col gap-4">
                      {section.images.slice(2, 3).map((img, i) => (
                        <div key={i} className="flex flex-col gap-4">
-                         <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
-                           <Image 
-                             src={img.src}
+                         <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
+                        <Image 
+                          src={img.src}
                              alt={`${section.category} Portrait ${i}`}
                              fill
                              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
@@ -433,7 +423,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -454,7 +444,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {section.images.slice(3, 5).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
@@ -487,7 +477,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -515,7 +505,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(3, 6).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i + 3}`}
@@ -539,7 +529,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-5xl mx-auto">
                   {section.images.slice(0, 2).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -571,9 +561,9 @@ export default function SelectedWorksSection() {
                   
                   {/* Portrait on Left (5 cols) */}
                   <div className="md:col-span-5 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
-                      <Image 
-                        src={section.images[0].src}
+                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[0], _gear: getRandomGear() }); }}>
+                        <Image 
+                          src={section.images[0].src}
                         alt={`${section.category} Portrait`}
                         fill
                         className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
@@ -588,9 +578,9 @@ export default function SelectedWorksSection() {
 
                   {/* Landscape on Right (7 cols) */}
                   <div className="md:col-span-7 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group">
-                      <Image 
-                        src={section.images[1].src}
+                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[1], _gear: getRandomGear() }); }}>
+                        <Image 
+                          src={section.images[1].src}
                         alt={`${section.category} Landscape`}
                         fill
                         className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] group-hover:scale-105"
@@ -618,9 +608,9 @@ export default function SelectedWorksSection() {
                   
                   {/* Landscape on Left (7 cols) */}
                   <div className="md:col-span-7 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group">
-                      <Image 
-                        src={section.images[0].src}
+                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[0], _gear: getRandomGear() }); }}>
+                        <Image 
+                          src={section.images[0].src}
                         alt={`${section.category} Landscape`}
                         fill
                         className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] group-hover:scale-105"
@@ -640,9 +630,9 @@ export default function SelectedWorksSection() {
 
                   {/* Portrait on Right (5 cols) */}
                   <div className="md:col-span-5 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
-                      <Image 
-                        src={section.images[1].src}
+                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[1], _gear: getRandomGear() }); }}>
+                        <Image 
+                          src={section.images[1].src}
                         alt={`${section.category} Portrait`}
                         fill
                         className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
@@ -716,7 +706,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                   {section.images.slice(0, 4).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -938,7 +928,7 @@ export default function SelectedWorksSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8 pt-[80px] sm:pt-[100px]"
             onClick={() => setSelectedPhotography(null)}
           >
             <motion.div
@@ -946,7 +936,7 @@ export default function SelectedWorksSection() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 50, opacity: 0, scale: 0.95 }}
               transition={{ ease: "easeOut", duration: 0.3 }}
-              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] bg-[#111] border border-white/10 flex flex-col md:flex-row overflow-hidden shadow-2xl"
+              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] md:h-[80vh] bg-[#111] border border-white/10 flex flex-col md:flex-row overflow-hidden shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Left Side (30%) - Fixed Text Content */}
@@ -958,30 +948,29 @@ export default function SelectedWorksSection() {
                     </div>
 
                     <div className="flex flex-col gap-6 pt-6 border-t border-white/10">
-                       {/* Context Info */}
                        <div className="flex flex-col gap-1">
                           <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Challenge</span>
                           <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-white/70">
-                             {selectedPhotography.challenge || "Capturing the raw emotion and scale of the event while navigating unpredictable lighting and fast-paced moments."}
+                             {selectedPhotography.image?.challenge || "Capturing the raw emotion and scale of the event while navigating unpredictable lighting and fast-paced moments."}
                           </p>
                        </div>
                        <div className="flex flex-col gap-1">
                           <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Solution</span>
                           <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-[#a8b8a0]">
-                             {selectedPhotography.solution || "Utilizing prime lenses for low-light advantage and anticipating key actions to secure compelling, structured compositions."}
+                             {selectedPhotography.image?.solution || "Utilizing prime lenses for low-light advantage and anticipating key actions to secure compelling, structured compositions."}
                           </p>
                        </div>
 
-                       {selectedPhotography.images[0]?.location && (
+                       {selectedPhotography.image?.location && (
                           <div className="flex flex-col gap-1">
                             <span className="text-xs font-bold uppercase tracking-widest text-white/50">Location / Event</span>
-                            <span className="font-mono text-sm tracking-widest uppercase">{selectedPhotography.images[0].location}</span>
+                            <span className="font-mono text-sm tracking-widest uppercase">{selectedPhotography.image.location}</span>
                           </div>
                        )}
-                       {selectedPhotography.images[0]?.year && (
+                       {selectedPhotography.image?.year && (
                           <div className="flex flex-col gap-1">
                             <span className="text-xs font-bold uppercase tracking-widest text-white/50">Year</span>
-                            <span className="font-mono text-sm tracking-widest">{selectedPhotography.images[0].year}</span>
+                            <span className="font-mono text-sm tracking-widest">{selectedPhotography.image.year}</span>
                           </div>
                        )}
                        {selectedPhotography._gear && (
@@ -1006,16 +995,15 @@ export default function SelectedWorksSection() {
               {/* Right Side (70%) - Scrollable Gallery */}
               <div className="flex-1 h-full overflow-y-auto p-4 md:p-8 bg-[#0a0a0a]">
                  <div className="flex flex-col gap-8 mx-auto max-w-4xl">
-                    {selectedPhotography.images.map((img: any, i: number) => (
-                       <div key={i} className="relative w-full">
+                    {/* We use only 1 image for now as requested, but scrollable area is ready */}
+                       <div className="relative w-full">
                           <img 
-                            src={img.src} 
-                            alt={`${selectedPhotography.category} ${i}`}
+                            src={selectedPhotography.image?.src} 
+                            alt={`${selectedPhotography.category} detail`}
                             className="w-full h-auto object-contain"
                             loading="lazy"
                           />
                        </div>
-                    ))}
                  </div>
               </div>
 
