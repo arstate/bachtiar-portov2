@@ -252,15 +252,11 @@ export default function FloatingGallery() {
           
           {/* Overlay subtle tracking lines & aesthetics */}
           <div className="absolute inset-0 border border-white/10 z-50 pointer-events-none m-4 md:m-8 mix-blend-difference" />
-          <div className="absolute top-8 right-8 text-white text-[8px] md:text-xs font-mono uppercase tracking-widest z-50 opacity-70 drop-shadow-md">
-            REC. 709 // 21:9
-          </div>
           <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/10 z-50 pointer-events-none mix-blend-overlay" />
 
           {/* Scroll Down Indicator */}
           <motion.div 
             className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-50 pointer-events-none"
-            style={{ opacity: scrollDownOpacity }}
           >
             <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.3em] drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]">SCROLL DOWN</span>
             <div className="w-[2px] h-10 md:h-14 bg-white/30 relative overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
