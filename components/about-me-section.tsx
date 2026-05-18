@@ -187,8 +187,8 @@ export default function AboutMeSection() {
 
     {/* CV Download Modal */}
     {showCVModal && (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-        <div className="relative w-full max-w-2xl bg-white border border-black shadow-2xl flex flex-col max-h-[90vh]">
+      <div className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] flex items-center justify-center bg-[#F4F3ED]/95 backdrop-blur-sm px-4">
+        <div className="relative w-full max-w-2xl bg-[#F4F3ED] border border-black/20 shadow-2xl flex flex-col max-h-[90vh]">
           
           {/* Modal Header */}
           <div className="flex items-center justify-between p-6 border-b border-black">
@@ -250,10 +250,13 @@ export default function AboutMeSection() {
                   ></iframe>
                 ) : (
                   <div className="w-full h-[60vh] overflow-y-auto border border-black/20 bg-white">
-                     <img 
+                     <Image 
                        src="https://github.com/user-attachments/assets/2bec4ee0-eacc-4095-bac5-3871f8f66495" 
                        alt="Design CV Preview" 
+                       width={1200}
+                       height={1600}
                        className="w-full h-auto object-contain" 
+                       priority
                      />
                   </div>
                 )}

@@ -680,10 +680,13 @@ export default function SelectedWorksSection() {
                         className="relative w-full aspect-[21/9] bg-neutral-900 overflow-hidden group cursor-pointer"
                         onClick={() => setSelectedVideo(img)}
                       >
-                         <img 
+                         <Image 
                            src={`https://img.youtube.com/vi/${img.videoId}/maxresdefault.jpg`}
                            alt={img.title || "Video thumbnail"}
-                           className="absolute top-0 left-0 w-full h-full object-cover transition-all duration-[1s]" 
+                           fill
+                           sizes="(max-width: 768px) 100vw, 50vw"
+                           className="object-cover transition-all duration-[1s]" 
+                           unoptimized={false}
                          />
                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
                             <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center pl-1 text-white shadow-[0_0_30px_rgba(220,38,38,0.5)] transition-transform group-hover:scale-110">
@@ -871,18 +874,14 @@ export default function SelectedWorksSection() {
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[12vh] pb-12 bg-black/90 backdrop-blur-md overflow-y-auto"
-            onClick={() => setSelectedVideo(null)}
+            initial={{ y: "100%", opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "100%", opacity: 1 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
+            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-y-auto flex justify-center"
           >
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              className="relative w-full max-w-5xl bg-[#111] border border-white/10 flex flex-col mt-4 md:mt-8 mb-auto"
-              onClick={(e) => e.stopPropagation()}
+            <div
+              className="relative w-full max-w-7xl flex flex-col mx-auto bg-[#F4F3ED] min-h-full"
             >
               <div className="w-full relative pt-[56.25%] bg-black">
                 <iframe 
@@ -892,9 +891,9 @@ export default function SelectedWorksSection() {
                    allowFullScreen
                 />
               </div>
-              <div className="p-8 md:p-12 text-white flex flex-col gap-8">
+              <div className="p-8 md:p-12 text-black flex flex-col gap-8 pb-[100px]">
                  <div className="flex flex-col gap-2">
-                   <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-white/50 mb-2">
+                   <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-black/50 mb-2">
                       <span>{selectedVideo.year}</span>
                       <span>•</span>
                       <span>{selectedVideo.location}</span>
@@ -902,28 +901,28 @@ export default function SelectedWorksSection() {
                    <h3 className="text-3xl md:text-5xl font-serif tracking-tighter italic">{selectedVideo.title}</h3>
                  </div>
                  
-                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 text-sm md:text-base text-white/80 leading-relaxed font-sans">
-                    <div className="md:col-span-1 border-t border-white/10 pt-4">
-                       <h4 className="text-white font-bold mb-2 uppercase tracking-widest text-xs">Overview</h4>
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 text-sm md:text-base text-black/80 leading-relaxed font-sans">
+                    <div className="md:col-span-1 border-t border-black/10 pt-4">
+                       <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">Overview</h4>
                        <p className="opacity-80 leading-relaxed">{selectedVideo.overview}</p>
                     </div>
-                    <div className="md:col-span-1 border-t border-white/10 pt-4">
-                       <h4 className="text-white font-bold mb-2 uppercase tracking-widest text-xs">The Challenge</h4>
+                    <div className="md:col-span-1 border-t border-black/10 pt-4">
+                       <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">The Challenge</h4>
                        <p className="opacity-80 leading-relaxed">{selectedVideo.challenge}</p>
                     </div>
-                    <div className="md:col-span-1 border-t border-white/10 pt-4">
-                       <h4 className="text-red-500 font-bold mb-2 uppercase tracking-widest text-xs">The Solution</h4>
+                    <div className="md:col-span-1 border-t border-black/10 pt-4">
+                       <h4 className="text-red-700 font-bold mb-2 uppercase tracking-widest text-xs">The Solution</h4>
                        <p className="opacity-80 leading-relaxed">{selectedVideo.solution}</p>
                     </div>
                  </div>
               </div>
               <button 
-                 className="absolute top-4 right-4 w-12 h-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-all backdrop-blur-sm z-10 hover:scale-110 active:scale-95"
+                 className="fixed top-[86px] md:top-[101px] right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-all backdrop-blur-sm z-50 hover:scale-110 active:scale-95 border border-black/10 shadow-sm"
                  onClick={() => setSelectedVideo(null)}
               >
                  <X className="w-6 h-6" />
               </button>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -932,29 +931,21 @@ export default function SelectedWorksSection() {
       <AnimatePresence>
         {selectedPhotography && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8 pt-[80px] sm:pt-[100px]"
-            onClick={() => setSelectedPhotography(null)}
+            initial={{ y: "100%", opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "100%", opacity: 1 }}
+            transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
+            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-y-auto md:overflow-hidden flex flex-col-reverse md:flex-row shadow-2xl"
           >
-            <motion.div
-              initial={{ y: 50, opacity: 0, scale: 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 50, opacity: 0, scale: 0.95 }}
-              transition={{ ease: "easeOut", duration: 0.3 }}
-              className="relative w-full max-w-[95vw] md:max-w-7xl h-[85vh] md:h-[80vh] bg-[#111] border border-white/10 flex flex-col-reverse md:flex-row shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
               {/* Left Side (30%) - Fixed Text Content */}
               <div 
-                className={`w-full md:w-[30%] flex flex-col border-t md:border-t-0 md:border-r border-white/10 bg-[#111] z-20 transition-all duration-500 ease-in-out md:h-full md:overflow-y-auto custom-scrollbar ${
+                className={`w-full md:w-[30%] flex flex-col border-t md:border-t-0 md:border-r border-black/10 bg-[#F4F3ED] z-20 transition-all duration-500 ease-in-out md:h-full md:overflow-y-auto custom-scrollbar ${
                   showMobileDetails ? "h-[60vh] overflow-y-auto pb-8" : "h-auto"
                 }`}
               >
                  {/* Mobile View: Toggle Button */}
                  <button 
-                  className="md:hidden w-full flex justify-center items-center py-3 text-white/50 hover:text-white transition-colors"
+                  className="md:hidden w-full flex justify-center items-center py-3 text-black/50 hover:text-black transition-colors"
                   onClick={() => setShowMobileDetails(!showMobileDetails)}
                  >
                    <svg 
@@ -966,12 +957,12 @@ export default function SelectedWorksSection() {
                  </button>
 
                  {/* Always showing Category and Event Name closely on Mobile, regular layout on Desktop */}
-                 <div className="flex flex-col gap-8 text-white/90 p-6 pt-0 md:p-8 md:pt-8 lg:p-12 lg:pt-12">
+                 <div className="flex flex-col gap-8 text-black/90 p-6 pt-0 md:p-8 md:pt-8 lg:p-12 lg:pt-12">
                     <div className="flex flex-col gap-2 md:gap-4">
                       <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif tracking-tighter uppercase">{selectedPhotography.category}</h3>
                       {selectedPhotography.image?.location && (
                         <div className="md:hidden block">
-                          <span className="font-mono text-sm tracking-widest text-[#a8b8a0]">{selectedPhotography.image.location.toUpperCase()}</span>
+                          <span className="font-mono text-sm tracking-widest text-[#5a6852]">{selectedPhotography.image.location.toUpperCase()}</span>
                         </div>
                       )}
                       
@@ -980,43 +971,43 @@ export default function SelectedWorksSection() {
                       </div>
                     </div>
 
-                    <div className={`flex flex-col gap-6 pt-6 border-t border-white/10 ${!showMobileDetails ? "hidden md:flex" : "flex"}`}>
+                    <div className={`flex flex-col gap-6 pt-6 border-t border-black/10 ${!showMobileDetails ? "hidden md:flex" : "flex"}`}>
                        <div className="flex flex-col gap-1">
-                          <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Challenge</span>
-                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-white/70">
+                          <span className="text-xs font-bold uppercase tracking-widest text-black/50 mb-1">The Challenge</span>
+                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-black/70">
                              {selectedPhotography.image?.challenge || "Capturing the raw emotion and scale of the event while navigating unpredictable lighting and fast-paced moments."}
                           </p>
                        </div>
                        <div className="flex flex-col gap-1">
-                          <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">The Solution</span>
-                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-[#a8b8a0]">
+                          <span className="text-xs font-bold uppercase tracking-widest text-black/50 mb-1">The Solution</span>
+                          <p className="font-sans text-sm tracking-wide opacity-80 leading-relaxed text-[#5a6852]">
                              {selectedPhotography.image?.solution || "Utilizing prime lenses for low-light advantage and anticipating key actions to secure compelling, structured compositions."}
                           </p>
                        </div>
 
                        {selectedPhotography.image?.location && (
                           <div className="hidden md:flex flex-col gap-1">
-                            <span className="text-xs font-bold uppercase tracking-widest text-white/50">Location / Event</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-black/50">Location / Event</span>
                             <span className="font-mono text-sm tracking-widest uppercase">{selectedPhotography.image.location}</span>
                           </div>
                        )}
                        {selectedPhotography.image?.year && (
                           <div className="flex flex-col gap-1">
-                            <span className="text-xs font-bold uppercase tracking-widest text-white/50">Year</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-black/50">Year</span>
                             <span className="font-mono text-sm tracking-widest">{selectedPhotography.image.year}</span>
                           </div>
                        )}
                        {selectedPhotography._gear && (
                           <div className="flex flex-col gap-1 mt-4">
-                            <span className="text-xs font-bold uppercase tracking-widest text-white/50 mb-2">Gear Used</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-black/50 mb-2">Gear Used</span>
                             <div className="flex flex-col gap-3">
                               <div>
-                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1">Camera</span>
-                                <span className="font-sans text-sm tracking-wide opacity-90">{selectedPhotography._gear.camera}</span>
+                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1 text-black">Camera</span>
+                                <span className="font-sans text-sm tracking-wide opacity-90 text-black">{selectedPhotography._gear.camera}</span>
                               </div>
                               <div>
-                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1">Lenses</span>
-                                <span className="font-sans text-sm tracking-wide opacity-90">{selectedPhotography._gear.lenses.join(', ')}</span>
+                                <span className="font-mono text-[10px] tracking-widest opacity-50 uppercase block mb-1 text-black">Lenses</span>
+                                <span className="font-sans text-sm tracking-wide opacity-90 text-black">{selectedPhotography._gear.lenses.join(', ')}</span>
                               </div>
                             </div>
                           </div>
@@ -1026,27 +1017,28 @@ export default function SelectedWorksSection() {
               </div>
 
               {/* Right Side (70%) - Scrollable Gallery */}
-              <div className="flex-1 h-full overflow-y-auto custom-scrollbar p-4 md:p-8 pb-[100px] md:pb-8 bg-[#0a0a0a]">
-                 <div className="flex flex-col gap-8 mx-auto max-w-4xl">
+              <div className="flex-1 h-[50vh] md:h-full overflow-y-auto custom-scrollbar p-4 md:p-8 pb-[100px] md:pb-8 bg-[#F4F3ED] border-l border-black/10">
+                 <div className="flex flex-col gap-8 mx-auto max-w-4xl h-full">
                     {/* We use only 1 image for now as requested, but scrollable area is ready */}
-                       <div className="relative w-full">
-                          <img 
-                            src={selectedPhotography.image?.src} 
-                            alt={`${selectedPhotography.category} detail`}
-                            className="w-full h-auto object-contain"
-                            loading="lazy"
+                       <div className="relative w-full h-full flex items-center justify-center">
+                          <Image 
+                             src={selectedPhotography.image?.src || ''} 
+                             alt={`${selectedPhotography.category} detail`}
+                             fill
+                             sizes="(max-width: 768px) 100vw, 75vw"
+                             className="object-contain shadow-sm border border-black/5"
+                             priority
                           />
                        </div>
                  </div>
               </div>
 
               <button 
-                 className="absolute top-4 right-4 w-12 h-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-all backdrop-blur-sm z-10 hover:scale-110 active:scale-95 border border-white/10"
+                 className="fixed top-[86px] md:top-[101px] right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-all backdrop-blur-sm z-50 hover:scale-110 active:scale-95 border border-black/10 shadow-sm"
                  onClick={() => setSelectedPhotography(null)}
               >
                  <X className="w-6 h-6" />
               </button>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

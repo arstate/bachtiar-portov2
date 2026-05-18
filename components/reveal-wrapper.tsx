@@ -30,8 +30,8 @@ export default function RevealWrapper({ aboutMe, selectedWorks }: RevealWrapperP
         {aboutMe}
       </div>
 
-      {/* LAYER 2: SELECTED WORKS (Normal Flow, Z-20) */}
-      <div className="relative z-20 w-full pointer-events-auto bg-[#050505]">
+      {/* LAYER 4: SELECTED WORKS (Z-40) */}
+      <div className="relative z-40 w-full pointer-events-auto bg-[#050505]">
         {selectedWorks}
       </div>
 
