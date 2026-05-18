@@ -874,55 +874,56 @@ export default function SelectedWorksSection() {
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
+            key="video-modal-container"
             initial={{ y: "100%", opacity: 1 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 1 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
-            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-y-auto flex justify-center"
+            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-hidden flex flex-col"
           >
-            <div
-              className="relative w-full max-w-7xl flex flex-col mx-auto bg-[#F4F3ED] min-h-full"
-            >
-              <div className="w-full relative pt-[56.25%] bg-black">
-                <iframe 
-                   src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
-                   className="absolute top-0 left-0 w-full h-full border-0" 
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                   allowFullScreen
-                />
-              </div>
-              <div className="p-8 md:p-12 text-black flex flex-col gap-8 pb-[100px]">
-                 <div className="flex flex-col gap-2">
-                   <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-black/50 mb-2">
-                      <span>{selectedVideo.year}</span>
-                      <span>•</span>
-                      <span>{selectedVideo.location}</span>
+            <div className="w-full h-full overflow-y-auto flex justify-center">
+              <div className="relative w-full max-w-7xl flex flex-col mx-auto bg-[#F4F3ED] min-h-full">
+                <div className="w-full relative pt-[56.25%] bg-black">
+                  <iframe 
+                     src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
+                     className="absolute top-0 left-0 w-full h-full border-0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                     allowFullScreen
+                  />
+                </div>
+                <div className="p-8 md:p-12 text-black flex flex-col gap-8 pb-[100px]">
+                   <div className="flex flex-col gap-2">
+                     <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-black/50 mb-2">
+                        <span>{selectedVideo.year}</span>
+                        <span>•</span>
+                        <span>{selectedVideo.location}</span>
+                     </div>
+                     <h3 className="text-3xl md:text-5xl font-serif tracking-tighter italic">{selectedVideo.title}</h3>
                    </div>
-                   <h3 className="text-3xl md:text-5xl font-serif tracking-tighter italic">{selectedVideo.title}</h3>
-                 </div>
-                 
-                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 text-sm md:text-base text-black/80 leading-relaxed font-sans">
-                    <div className="md:col-span-1 border-t border-black/10 pt-4">
-                       <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">Overview</h4>
-                       <p className="opacity-80 leading-relaxed">{selectedVideo.overview}</p>
-                    </div>
-                    <div className="md:col-span-1 border-t border-black/10 pt-4">
-                       <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">The Challenge</h4>
-                       <p className="opacity-80 leading-relaxed">{selectedVideo.challenge}</p>
-                    </div>
-                    <div className="md:col-span-1 border-t border-black/10 pt-4">
-                       <h4 className="text-red-700 font-bold mb-2 uppercase tracking-widest text-xs">The Solution</h4>
-                       <p className="opacity-80 leading-relaxed">{selectedVideo.solution}</p>
-                    </div>
-                 </div>
+                   
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-4 text-sm md:text-base text-black/80 leading-relaxed font-sans">
+                      <div className="md:col-span-1 border-t border-black/10 pt-4">
+                         <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">Overview</h4>
+                         <p className="opacity-80 leading-relaxed">{selectedVideo.overview}</p>
+                      </div>
+                      <div className="md:col-span-1 border-t border-black/10 pt-4">
+                         <h4 className="text-black font-bold mb-2 uppercase tracking-widest text-xs">The Challenge</h4>
+                         <p className="opacity-80 leading-relaxed">{selectedVideo.challenge}</p>
+                      </div>
+                      <div className="md:col-span-1 border-t border-black/10 pt-4">
+                         <h4 className="text-red-700 font-bold mb-2 uppercase tracking-widest text-xs">The Solution</h4>
+                         <p className="opacity-80 leading-relaxed">{selectedVideo.solution}</p>
+                      </div>
+                   </div>
+                </div>
               </div>
-              <button 
-                 className="fixed top-[86px] md:top-[101px] right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-all backdrop-blur-sm z-50 hover:scale-110 active:scale-95 border border-black/10 shadow-sm"
-                 onClick={() => setSelectedVideo(null)}
-              >
-                 <X className="w-6 h-6" />
-              </button>
             </div>
+            <button 
+               className="absolute top-4 right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-colors backdrop-blur-sm z-[10000] hover:scale-110 active:scale-95 border border-black/10 shadow-sm cursor-pointer"
+               onClick={() => setSelectedVideo(null)}
+            >
+               <X className="w-6 h-6" />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -931,11 +932,12 @@ export default function SelectedWorksSection() {
       <AnimatePresence>
         {selectedPhotography && (
           <motion.div
+            key="photo-modal-container"
             initial={{ y: "100%", opacity: 1 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "100%", opacity: 1 }}
             transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
-            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-y-auto md:overflow-hidden flex flex-col-reverse md:flex-row shadow-2xl"
+            className="fixed top-[70px] md:top-[85px] left-0 w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-85px)] z-[9999] bg-[#F4F3ED] overflow-hidden flex flex-col-reverse md:flex-row shadow-2xl"
           >
               {/* Left Side (30%) - Fixed Text Content */}
               <div 
@@ -1031,7 +1033,7 @@ export default function SelectedWorksSection() {
               </div>
 
               <button 
-                 className="fixed top-[86px] md:top-[101px] right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-all backdrop-blur-sm z-50 hover:scale-110 active:scale-95 border border-black/10 shadow-sm"
+                 className="absolute top-4 right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-colors backdrop-blur-sm z-[10000] hover:scale-110 active:scale-95 border border-black/10 shadow-sm cursor-pointer"
                  onClick={() => setSelectedPhotography(null)}
               >
                  <X className="w-6 h-6" />

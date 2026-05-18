@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Linkedin, Instagram, Mail, Download, X, FileText, Layout } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const TikTokIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -21,6 +21,17 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 export default function AboutMeSection() {
   const [showCVModal, setShowCVModal] = useState(false);
   const [cvPreviewType, setCvPreviewType] = useState<"ats" | "design" | null>(null);
+
+  useEffect(() => {
+    if (showCVModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showCVModal]);
 
   const handleDownloadWait = () => {
     // For now do nothing or show toast
