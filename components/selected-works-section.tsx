@@ -1017,19 +1017,16 @@ export default function SelectedWorksSection() {
               </div>
 
               {/* Right Side (70%) - Scrollable Gallery */}
-              <div className="flex-1 h-[50vh] md:h-full overflow-y-auto custom-scrollbar p-4 md:p-8 pb-[100px] md:pb-8 bg-[#F4F3ED] border-l border-black/10">
-                 <div className="flex flex-col gap-8 mx-auto max-w-4xl h-full">
-                    {/* We use only 1 image for now as requested, but scrollable area is ready */}
-                       <div className="relative w-full h-full flex items-center justify-center">
-                          <Image 
-                             src={selectedPhotography.image?.src || ''} 
-                             alt={`${selectedPhotography.category} detail`}
-                             fill
-                             sizes="(max-width: 768px) 100vw, 75vw"
-                             className="object-contain shadow-sm border border-black/5"
-                             priority
-                          />
-                       </div>
+              <div className="flex-1 h-[50vh] md:h-full bg-[#F4F3ED] border-l border-black/10 relative">
+                 <div className="w-full h-full relative">
+                    <Image 
+                       src={selectedPhotography.image?.src || ''} 
+                       alt={`${selectedPhotography.category} detail`}
+                       fill
+                       sizes="(max-width: 768px) 100vw, 75vw"
+                       className="object-cover sm:object-contain"
+                       priority
+                    />
                  </div>
               </div>
 
