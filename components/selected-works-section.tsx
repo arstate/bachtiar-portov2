@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { User, MessageSquare, Send, X, Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { User, MessageSquare, Send, X, Play } from "lucide-react";
 
 // Remove hardcoded photographyData array; we will fetch it!
 
@@ -133,28 +132,14 @@ export default function SelectedWorksSection() {
   const [direction, setDirection] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<{ src?: string; videoId?: string; title?: string; overview?: string; challenge?: string; solution?: string; location?: string; year?: string } | null>(null);
   const [selectedPhotography, setSelectedPhotography] = useState<any | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [fullscreenIndex, setFullscreenIndex] = useState(0);
   const [showMobileDetails, setShowMobileDetails] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true), []);
   const [photographyData, setPhotographyData] = useState<any[]>([]);
 
-  const handlePhotoClick = (section: any, img: any) => {
-    if (activeTab === 'photography') {
-      const eventImages = section.images.filter((i: any) => i.location === img.location && i.year === img.year);
+  useEffect(() => {
+    if (selectedPhotography) {
       setShowMobileDetails(false);
-      setSelectedPhotography({
-        category: section.category,
-        description: section.description,
-        image: img,
-        eventImages: eventImages,
-        _gear: getRandomGear()
-      });
-      setIsFullscreen(false);
     }
-  };
-
+  }, [selectedPhotography]);
 
   useEffect(() => {
     fetch('/api/photography')
@@ -236,7 +221,7 @@ export default function SelectedWorksSection() {
               <div className="w-full flex flex-col gap-12 md:gap-24">
                   {section.images.map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -272,7 +257,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -317,7 +302,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
                   {section.images.slice(0, 1).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -351,7 +336,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {section.images.slice(1, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
@@ -389,7 +374,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 gap-6 md:gap-8">
                   {section.images.slice(0, 2).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -424,7 +409,7 @@ export default function SelectedWorksSection() {
                    <div className="w-full sm:w-1/2 md:w-1/3 flex flex-col gap-4">
                      {section.images.slice(2, 3).map((img, i) => (
                        <div key={i} className="flex flex-col gap-4">
-                         <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                         <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                              alt={`${section.category} Portrait ${i}`}
@@ -463,7 +448,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Landscape ${i}`}
@@ -487,7 +472,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {section.images.slice(3, 5).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} Portrait ${i}`}
@@ -523,7 +508,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(0, 3).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -554,7 +539,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {section.images.slice(3, 6).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i + 3}`}
@@ -581,7 +566,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-5xl mx-auto">
                   {section.images.slice(0, 2).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -616,7 +601,7 @@ export default function SelectedWorksSection() {
                   
                   {/* Portrait on Left (5 cols) */}
                   <div className="md:col-span-5 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, section.images[0])}>
+                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[0], _gear: getRandomGear() }); }}>
                         <Image 
                           src={section.images[0].src}
                         alt={`${section.category} Portrait`}
@@ -636,7 +621,7 @@ export default function SelectedWorksSection() {
 
                   {/* Landscape on Right (7 cols) */}
                   <div className="md:col-span-7 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, section.images[1])}>
+                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[1], _gear: getRandomGear() }); }}>
                         <Image 
                           src={section.images[1].src}
                         alt={`${section.category} Landscape`}
@@ -669,7 +654,7 @@ export default function SelectedWorksSection() {
                   
                   {/* Landscape on Left (7 cols) */}
                   <div className="md:col-span-7 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, section.images[0])}>
+                    <div className="relative w-full aspect-[16/9] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[0], _gear: getRandomGear() }); }}>
                         <Image 
                           src={section.images[0].src}
                         alt={`${section.category} Landscape`}
@@ -694,7 +679,7 @@ export default function SelectedWorksSection() {
 
                   {/* Portrait on Right (5 cols) */}
                   <div className="md:col-span-5 flex flex-col gap-4">
-                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, section.images[1])}>
+                    <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: section.images[1], _gear: getRandomGear() }); }}>
                         <Image 
                           src={section.images[1].src}
                         alt={`${section.category} Portrait`}
@@ -777,7 +762,7 @@ export default function SelectedWorksSection() {
                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                   {section.images.slice(0, 4).map((img, i) => (
                     <div key={i} className="flex flex-col gap-4">
-                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => handlePhotoClick(section, img)}>
+                      <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group cursor-pointer" onClick={() => { if (activeTab === 'photography') setSelectedPhotography({ category: section.category, description: section.description, image: img, _gear: getRandomGear() }); }}>
                         <Image 
                           src={img.src}
                           alt={`${section.category} ${i}`}
@@ -992,74 +977,6 @@ export default function SelectedWorksSection() {
         )}
       </AnimatePresence>
 
-              {/* Fullscreen Mode */}
-              {isMounted && typeof document !== 'undefined' && createPortal(
-                <AnimatePresence>
-                  {isFullscreen && (
-                    <motion.div 
-                      key="fullscreen-overlay"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="fixed inset-0 z-[9999999] bg-black/95 backdrop-blur-3xl flex items-center justify-center overflow-hidden"
-                    >
-                       <button 
-                         className="absolute top-6 right-6 z-[10000000] w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm hover:scale-110 active:scale-95 border border-white/10 shadow-sm cursor-pointer"
-                         onClick={(e) => { e.stopPropagation(); setIsFullscreen(false); }}
-                       >
-                          <X className="w-6 h-6" />
-                       </button>
-                       
-                       <div className="absolute inset-y-0 left-0 w-24 z-[1000000] flex items-center justify-start pl-4 md:pl-8 pointer-events-none">
-                          <button 
-                            className="w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm border border-white/10 shadow-sm cursor-pointer pointer-events-auto hover:scale-110 active:scale-95 disabled:opacity-30 disabled:hover:scale-100 disabled:cursor-not-allowed"
-                            onClick={(e) => { e.stopPropagation(); setFullscreenIndex(prev => Math.max(0, prev - 1)); }}
-                            disabled={fullscreenIndex === 0}
-                          >
-                             <ChevronLeft className="w-8 h-8" />
-                          </button>
-                       </div>
-
-                       <div className="absolute inset-y-0 right-0 w-24 z-[1000000] flex items-center justify-end pr-4 md:pr-8 pointer-events-none">
-                          <button 
-                            className="w-12 h-12 bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm border border-white/10 shadow-sm cursor-pointer pointer-events-auto hover:scale-110 active:scale-95 disabled:opacity-30 disabled:hover:scale-100 disabled:cursor-not-allowed"
-                            onClick={(e) => { 
-                               e.stopPropagation(); 
-                               const images = selectedPhotography.eventImages && selectedPhotography.eventImages.length > 0 ? selectedPhotography.eventImages : [selectedPhotography.image];
-                               setFullscreenIndex(prev => Math.min(images.length - 1, prev + 1)); 
-                            }}
-                            disabled={fullscreenIndex === ((selectedPhotography.eventImages && selectedPhotography.eventImages.length > 0 ? selectedPhotography.eventImages : [selectedPhotography.image]).length - 1)}
-                          >
-                             <ChevronRight className="w-8 h-8" />
-                          </button>
-                       </div>
-                        
-                       <div className="relative w-full h-full flex items-center justify-center p-4 md:p-12 z-[999999]" onClick={(e) => { e.stopPropagation(); setIsFullscreen(false); }}>
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                 key={fullscreenIndex}
-                                 initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                                 animate={{ opacity: 1, x: 0, scale: 1 }}
-                                 exit={{ opacity: 0, x: -50, scale: 0.95 }}
-                                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                 className="relative w-full h-full flex items-center justify-center"
-                                 onClick={(e) => e.stopPropagation()}
-                              >
-                                 <img
-                                   src={(selectedPhotography.eventImages && selectedPhotography.eventImages.length > 0 ? selectedPhotography.eventImages : [selectedPhotography.image])[fullscreenIndex].src} 
-                                   alt={`Fullscreen Gallery Image ${fullscreenIndex}`}
-                                   className="max-w-[100vw] max-h-[100vh] w-auto h-auto object-contain"
-                                 />
-                              </motion.div>
-                            </AnimatePresence>
-                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>,
-                document.body
-              )}
-
       {/* Photography Modal */}
       <AnimatePresence>
         {selectedPhotography && (
@@ -1151,37 +1068,21 @@ export default function SelectedWorksSection() {
               </div>
 
               {/* Right Side (70%) - Scrollable Gallery */}
-              <div className="flex-1 h-[50vh] md:h-full bg-[#F4F3ED] border-l md:border-black/10 relative overflow-y-auto p-4 md:p-8 custom-scrollbar">
-                 <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-                    {(selectedPhotography.eventImages && selectedPhotography.eventImages.length > 0 ? selectedPhotography.eventImages : [selectedPhotography.image]).map((img: any, i: number) => {
-                       return (
-                         <motion.div 
-                           key={i} 
-                           layoutId={`gallery-item-${img.src}`}
-                           className={`relative w-full bg-neutral-200 overflow-hidden group cursor-pointer inline-block`}
-                           onClick={() => {
-                             setFullscreenIndex(i);
-                             setIsFullscreen(true);
-                           }}
-                         >
-                            <img 
-                               src={img.src}
-                               alt={`Gallery Image ${i}`}
-                               className="w-full block object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/20 pointer-events-none z-10">
-                               <span className="text-white font-sans text-xs tracking-widest uppercase border border-white/40 px-6 py-2 backdrop-blur-md bg-black/20">View Fullscreen</span>
-                            </div>
-                         </motion.div>
-                       )
-                    })}
+              <div className="flex-1 h-[50vh] md:h-full bg-[#F4F3ED] border-l border-black/10 relative">
+                 <div className="w-full h-full relative">
+                    <Image 
+                       src={selectedPhotography.image?.src || ''} 
+                       alt={`${selectedPhotography.category} detail`}
+                       fill
+                       sizes="(max-width: 768px) 100vw, 75vw"
+                       className="object-cover sm:object-contain"
+                       priority
+                    />
                  </div>
               </div>
 
-
-
               <button 
-                 className="absolute top-4 right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-colors backdrop-blur-sm z-[90] hover:scale-110 active:scale-95 border border-black/10 shadow-sm cursor-pointer"
+                 className="absolute top-4 right-4 w-12 h-12 bg-white/50 hover:bg-white/80 flex items-center justify-center text-black transition-colors backdrop-blur-sm z-[10000] hover:scale-110 active:scale-95 border border-black/10 shadow-sm cursor-pointer"
                  onClick={() => setSelectedPhotography(null)}
               >
                  <X className="w-6 h-6" />
